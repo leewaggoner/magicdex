@@ -1,4 +1,4 @@
-package com.wreckingballsoftware.magicdex.ui
+package com.wreckingballsoftware.magicdex
 
 import android.app.Application
 import com.wreckingballsoftware.magicdex.di.appModule

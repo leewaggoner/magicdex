@@ -8,6 +8,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
+@Suppress("ComposableNaming")
 @Composable
 fun <T> Flow<T>.collectOneTimeEvents(action: (T) -> Unit) {
     val lifecycle = LocalLifecycleOwner.current.lifecycle
