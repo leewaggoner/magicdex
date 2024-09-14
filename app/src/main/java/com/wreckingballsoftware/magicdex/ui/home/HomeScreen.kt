@@ -1,17 +1,28 @@
 package com.wreckingballsoftware.magicdex.ui.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.wreckingballsoftware.magicdex.R
+import com.wreckingballsoftware.magicdex.ui.home.components.HomeMenuSection
 import com.wreckingballsoftware.magicdex.ui.home.components.MagicTopAppBar
+import com.wreckingballsoftware.magicdex.ui.home.components.models.HomeMenuItem
+import com.wreckingballsoftware.magicdex.ui.home.components.models.MenuItemType
 import com.wreckingballsoftware.magicdex.ui.home.models.HomeEvents
+import com.wreckingballsoftware.magicdex.ui.home.models.HomeState
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
-import com.wreckingballsoftware.magicdex.ui.theme.White
+import com.wreckingballsoftware.magicdex.ui.theme.LightBlack
+import com.wreckingballsoftware.magicdex.ui.theme.LightBlue
+import com.wreckingballsoftware.magicdex.ui.theme.LightGreen
+import com.wreckingballsoftware.magicdex.ui.theme.LightRed
+import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -19,12 +30,26 @@ fun HomeScreen(
     navGraph: NavGraph,
     viewModel: HomeViewModel = getViewModel()
 ) {
+
+    HomeScreenContent(
+        state = viewModel.state,
+        onEvent = viewModel::onEvent,
+        menuList = viewModel.getMenuList()
+    )
+}
+
+@Composable
+fun HomeScreenContent(
+    state: HomeState,
+    onEvent: (HomeEvents) -> Unit,
+    menuList: List<HomeMenuItem>,
+) {
     Scaffold(
         topBar = {
             MagicTopAppBar(
-                searchQuery = viewModel.state.searchQuery,
-                searchQueryChanged = { viewModel.onEvent(HomeEvents.OnSearchQueryChanged(it)) },
-                searchAction = { viewModel.onEvent(HomeEvents.OnSearchAction) }
+                searchQuery = state.searchQuery,
+                searchQueryChanged = { onEvent(HomeEvents.OnSearchQueryChanged(it)) },
+                searchAction = { onEvent(HomeEvents.OnSearchAction) }
             )
         },
     ) { contentPadding ->
@@ -32,47 +57,33 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(contentPadding)
-                .background(color = White)
+                .padding(
+                    vertical = MaterialTheme.dimensions.paddingLarge,
+                    horizontal = MaterialTheme.dimensions.padding
+                )
+                .verticalScroll(rememberScrollState())
         ) {
+            HomeMenuSection(
+                menuItems = menuList,
+                onClick = { item ->
+                    onEvent(HomeEvents.OnMenuItemClicked(item))
+                }
+            )
         }
     }
+}
 
-//    val context = LocalContext.current
-//    viewModel.oneOffEvent.collectOneTimeEvents { nav ->
-//        when (nav) {
-//            HomeOneOffs.OnGoToMagicDex -> navGraph.navigateToMagicDexScreen("12345")
-//            is HomeOneOffs.OnShowToast -> Toast.makeText(context, nav.message, Toast.LENGTH_SHORT).show()
-//        }
-//    }
-//
-//    Column(
-//        modifier = Modifier
-//            .padding(16.dp),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Center,
-//    ) {
-//        Text(stringResource(R.string.app_name))
-//        Button(
-//            onClick = { viewModel.onEvent(HomeEvents.OnMagicDexClick) }
-//        ) {
-//            Text("Hello, World!")
-//        }
-//        Button(
-//            onClick = { viewModel.onEvent(HomeEvents.OnToastClick) }
-//        ) {
-//            Text("Toast Me!")
-//        }
-//        Button(
-//            onClick = { viewModel.onEvent(HomeEvents.OnAlertDialogClick) }
-//        ) {
-//            Text("Alert Me!")
-//        }
-//    }
-//    viewModel.state.alertMessage?.let { message ->
-//        MagicDexAlert(
-//            onDismissRequest = { viewModel.dismissDialog() },
-//            message = message,
-//            confirmAction = { viewModel.dismissDialog() }
-//        )
-//    }
+@Preview(name = "HomeScreen")
+@Composable
+fun HomeScreenPreview() {
+    HomeScreenContent(
+        state = HomeState(),
+        onEvent = {},
+        menuList = listOf(
+            HomeMenuItem(MenuItemType.MAGIC_DEX, R.string.magic_dex, LightGreen),
+            HomeMenuItem(MenuItemType.SETS, R.string.sets, LightBlack),
+            HomeMenuItem(MenuItemType.TYPES, R.string.types, LightRed),
+            HomeMenuItem(MenuItemType.FORMATS, R.string.formats, LightBlue),
+        )
+    )
 }

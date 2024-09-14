@@ -4,4 +4,8 @@
     <string name="app_bar_hint">Search for card by name</string>
     <string name="logo_image_description">\"Magic Dex Logo\"</string>
     <string name="search_icon_description">Search</string>
+    <string name="magic_dex">MagicDex</string>
+    <string name="sets">Sets</string>
+    <string name="types">Types</string>
+    <string name="formats">Formats</string>
 </resources>

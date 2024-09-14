@@ -68,7 +68,7 @@ fun MagicTopAppBar(
         Text(
             modifier = Modifier.padding(MaterialTheme.dimensions.padding),
             text = stringResource(R.string.app_bar_title),
-            style = MaterialTheme.magicTypography.headline,
+            style = MaterialTheme.magicTypography.title,
             color = White,
         )
         Card(

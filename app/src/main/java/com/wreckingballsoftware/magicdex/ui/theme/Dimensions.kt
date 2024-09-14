@@ -13,6 +13,8 @@ data class Dimensions(
     val paddingVerySmall: Dp = 4.dp,
     val paddingSmall: Dp = 8.dp,
     val padding: Dp = 16.dp,
+    val paddingLarge: Dp = 32.dp,
+    val spaceVerySmall: Dp = 8.dp,
     val spaceSmall: Dp = 16.dp,
     val spaceMedium: Dp = 32.dp,
     val spaceLarge: Dp = 64.dp,
@@ -21,6 +23,10 @@ data class Dimensions(
     val appBarImageOffset: Dp = 90.dp,
     val appBarCorner: Dp = 16.dp,
     val searchCorner: Dp = 32.dp,
+    val homeMenuItemHeight: Dp = 60.dp,
+    val homeMenuImageSize: Dp = 96.dp,
+    val homeMenuImageOffset: Dp = 32.dp,
+    val menuSectionHeight: Dp = 128.dp,
 )
 
 val LocalDimensions = staticCompositionLocalOf { Dimensions() }
