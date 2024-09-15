@@ -19,14 +19,20 @@ import com.wreckingballsoftware.magicdex.ui.theme.LightRed
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 
 @Composable
-fun HomeMenuSection(menuItems: List<HomeMenuItem>, onClick: (MenuItemType) -> Unit) {
+fun HomeMenuSection(
+    modifier: Modifier = Modifier,
+    menuItems: List<HomeMenuItem>,
+    onClick: (MenuItemType) -> Unit
+) {
     LazyVerticalGrid(
-        modifier = Modifier
-            .height(MaterialTheme.dimensions.menuSectionHeight)
-            .fillMaxWidth(),
+        modifier = modifier.then(
+            Modifier
+                .height(MaterialTheme.dimensions.menuSectionHeight)
+                .fillMaxWidth()
+        ),
         columns = GridCells.Fixed(count = 2),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimensions.spaceVerySmall),
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimensions.spaceVerySmall),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimensions.spaceSmall),
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimensions.spaceSmall),
     ) {
         items(menuItems.size) { index ->
             HomeMenu(menuItems[index], onClick)
@@ -44,6 +50,6 @@ fun HomeMenuSectionPreview() {
             HomeMenuItem(MenuItemType.TYPES, R.string.types, LightRed),
             HomeMenuItem(MenuItemType.FORMATS, R.string.formats, LightBlue),
         ),
-        onClick = { }
+        onClick = { },
     )
 }

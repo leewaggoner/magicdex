@@ -1,6 +1,8 @@
 package com.wreckingballsoftware.magicdex.ui.home.models
 
+import com.wreckingballsoftware.magicdex.ui.home.components.models.NewsList
+
 data class HomeState(
     val searchQuery: String = "",
-//    val alertMessage: String? = null,
+    val newsList: NewsList = listOf(),
 )

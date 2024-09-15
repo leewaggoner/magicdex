@@ -18,12 +18,34 @@ data class CustomTypeStyles(
         fontSize = 32.sp,
         lineHeight = 40.sp,
     ),
+    val subtitle: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 22.sp,
+        lineHeight = 30.sp,
+    ),
     val homeMenu: TextStyle = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
         lineHeight = 28.sp,
-        color = White
+        color = White,
+    ),
+    val hyperlink: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        color = Indigo,
+    ),
+    val newsTitle: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
+    ),
+    val newsDate: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
     ),
 )
 

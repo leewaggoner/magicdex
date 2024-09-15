@@ -42,27 +42,30 @@ import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 
 @Composable
 fun MagicTopAppBar(
+    modifier: Modifier = Modifier,
     searchQuery: String = "",
     searchQueryChanged: (String) -> Unit,
     searchAction: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(MaterialTheme.dimensions.appBarHeight)
-            .background(
-                color = LightBlack,
-                shape = RoundedCornerShape(
-                    bottomStart = MaterialTheme.dimensions.appBarCorner,
-                    bottomEnd = MaterialTheme.dimensions.appBarCorner,
+        modifier = modifier.then(
+            Modifier
+                .fillMaxWidth()
+                .height(MaterialTheme.dimensions.appBarHeight)
+                .background(
+                    color = LightBlack,
+                    shape = RoundedCornerShape(
+                        bottomStart = MaterialTheme.dimensions.appBarCorner,
+                        bottomEnd = MaterialTheme.dimensions.appBarCorner,
+                    )
                 )
-            )
-            .clip(
-                RoundedCornerShape(
-                    bottomStart = MaterialTheme.dimensions.appBarCorner,
-                    bottomEnd = MaterialTheme.dimensions.appBarCorner,
-                )
-            ),
+                .clip(
+                    RoundedCornerShape(
+                        bottomStart = MaterialTheme.dimensions.appBarCorner,
+                        bottomEnd = MaterialTheme.dimensions.appBarCorner,
+                    )
+                ),
+        ),
         verticalArrangement = Arrangement.Bottom
     ) {
         Text(

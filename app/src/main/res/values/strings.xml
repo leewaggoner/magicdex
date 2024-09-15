@@ -8,4 +8,7 @@
     <string name="sets">Sets</string>
     <string name="types">Types</string>
     <string name="formats">Formats</string>
+    <string name="magic_news">Magic: the Gathering News</string>
+    <string name="view_all">View All</string>
+    <string name="magic_image">Magic Image</string>
 </resources>
