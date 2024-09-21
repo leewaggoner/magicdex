@@ -17,10 +17,12 @@ import io.ktor.http.ContentType.Application.Json
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 
 private const val NETWORK_TIME_OUT = 6_000L
 
+@OptIn(ExperimentalSerializationApi::class)
 val httpClientAndroid = HttpClient(Android) {
     install(ContentNegotiation) {
         json(
@@ -30,6 +32,7 @@ val httpClientAndroid = HttpClient(Android) {
                 useAlternativeNames = true
                 ignoreUnknownKeys = true
                 encodeDefaults = false
+                explicitNulls = false
             }
         )
     }

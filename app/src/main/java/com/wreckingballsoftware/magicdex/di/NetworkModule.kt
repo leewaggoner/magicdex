@@ -7,13 +7,9 @@ import org.koin.dsl.module
 
 val networkModule = module {
     single { provideHttpClient() }
-    single { provideCardService(get()) }
+    single { CardService(get()) }
 }
 
 fun provideHttpClient(): HttpClient {
     return httpClientAndroid
-}
-
-fun provideCardService(httpClient: HttpClient): CardService {
-    return CardService(httpClient)
 }
