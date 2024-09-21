@@ -6,17 +6,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.wreckingballsoftware.magicdex.R
+import com.wreckingballsoftware.magicdex.extensions.collectOneTimeEvents
 import com.wreckingballsoftware.magicdex.ui.home.components.HomeMenuSection
 import com.wreckingballsoftware.magicdex.ui.home.components.MagicTopAppBar
-import com.wreckingballsoftware.magicdex.ui.home.components.NewsSection
 import com.wreckingballsoftware.magicdex.ui.home.components.models.HomeMenuItem
 import com.wreckingballsoftware.magicdex.ui.home.components.models.MenuItemType
-import com.wreckingballsoftware.magicdex.ui.home.components.models.News
 import com.wreckingballsoftware.magicdex.ui.home.models.HomeEvents
+import com.wreckingballsoftware.magicdex.ui.home.models.HomeOneOffs
 import com.wreckingballsoftware.magicdex.ui.home.models.HomeState
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
 import com.wreckingballsoftware.magicdex.ui.theme.LightBlack
@@ -31,9 +30,10 @@ fun HomeScreen(
     navGraph: NavGraph,
     viewModel: HomeViewModel = getViewModel(),
 ) {
-
-    LaunchedEffect(Unit) {
-        viewModel.onEvent(HomeEvents.OnGetNews)
+    viewModel.oneOffEvent.collectOneTimeEvents() { oneOff ->
+        when (oneOff) {
+            HomeOneOffs.OnGoToMagicDex -> navGraph.navigateToMagicDexScreen()
+        }
     }
 
     HomeScreenContent(
@@ -76,11 +76,6 @@ fun HomeScreenContent(
                     onEvent(HomeEvents.OnMenuItemClicked(item))
                 },
             )
-            NewsSection(
-                newsList = state.newsList,
-                onViewAllClick = { onEvent(HomeEvents.OnViewAllNews) },
-                onViewItemClick = { link -> onEvent(HomeEvents.OnViewNewsItem(link)) },
-            )
         }
     }
 }
@@ -89,20 +84,7 @@ fun HomeScreenContent(
 @Composable
 fun HomeScreenPreview() {
     HomeScreenContent(
-        state = HomeState(
-            newsList = listOf(
-                News(title = "Title 1", date = "10/15/2024"),
-                News(title = "Title 2", date = "10/14/2024"),
-                News(title = "Title 3", date = "10/13/2024"),
-                News(title = "Title 4", date = "10/12/2024"),
-                News(title = "Title 5", date = "10/11/2024"),
-                News(title = "Title 6", date = "10/10/2024"),
-                News(title = "Title 7", date = "10/09/2024"),
-                News(title = "Title 8", date = "10/08/2024"),
-                News(title = "Title 9", date = "10/07/2024"),
-                News(title = "Title 10", date = "10/06/2024"),
-            )
-        ),
+        state = HomeState(),
         onEvent = {},
         menuList = listOf(
             HomeMenuItem(MenuItemType.MAGIC_DEX, R.string.magic_dex, LightGreen),

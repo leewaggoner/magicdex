@@ -13,9 +13,9 @@ class NavGraph(navController: NavController) {
             launchSingleTop = true
         }
     }
-    val navigateToMagicDexScreen: (String) -> Unit = { id ->
+    val navigateToMagicDexScreen: () -> Unit = {
         navController.navigate(
-            Routes.MagicDex(id = id)
+            Routes.MagicDex
         ) {
         }
     }

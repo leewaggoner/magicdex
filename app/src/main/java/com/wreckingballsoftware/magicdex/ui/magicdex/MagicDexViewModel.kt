@@ -8,14 +8,10 @@ import androidx.lifecycle.viewmodel.compose.saveable
 import com.wreckingballsoftware.magicdex.ui.magicdex.models.MagicDexState
 
 class MagicDexViewModel(
-    private val handle: SavedStateHandle
+    handle: SavedStateHandle
 ): ViewModel() {
     @OptIn(SavedStateHandleSaveableApi::class)
     var state by handle.saveable {
         mutableStateOf(MagicDexState())
-    }
-
-    init {
-        state = state.copy(id = handle["id"] ?: "")
     }
 }
