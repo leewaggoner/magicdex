@@ -1,4 +1,4 @@
-package com.wreckingballsoftware.magicdex.ui.home.components
+package com.wreckingballsoftware.magicdex.ui.components
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button

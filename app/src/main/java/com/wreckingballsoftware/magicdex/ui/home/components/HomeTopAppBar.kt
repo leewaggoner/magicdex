@@ -41,7 +41,7 @@ import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 
 @Composable
-fun MagicTopAppBar(
+fun HomeTopAppBar(
     modifier: Modifier = Modifier,
     searchQuery: String = "",
     searchQueryChanged: (String) -> Unit,
@@ -150,10 +150,10 @@ fun MagicTopAppBar(
     }
 }
 
-@Preview(name = "MagicTopAppBar")
+@Preview(name = "HomeTopAppBar")
 @Composable
-fun MagicTopAppBarPreview() {
-    MagicTopAppBar(
+private fun HomeTopAppBarPreview() {
+    HomeTopAppBar(
         searchQuery = "",
         searchQueryChanged = { },
         searchAction = { },

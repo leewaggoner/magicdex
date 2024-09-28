@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.extensions.collectOneTimeEvents
 import com.wreckingballsoftware.magicdex.ui.home.components.HomeMenuSection
-import com.wreckingballsoftware.magicdex.ui.home.components.MagicTopAppBar
+import com.wreckingballsoftware.magicdex.ui.home.components.HomeTopAppBar
 import com.wreckingballsoftware.magicdex.ui.home.components.models.HomeMenuItem
 import com.wreckingballsoftware.magicdex.ui.home.components.models.MenuItemType
 import com.wreckingballsoftware.magicdex.ui.home.models.HomeEvents
@@ -44,14 +44,14 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeScreenContent(
+private fun HomeScreenContent(
     state: HomeState,
     onEvent: (HomeEvents) -> Unit,
     menuList: List<HomeMenuItem>,
 ) {
     Scaffold(
         topBar = {
-            MagicTopAppBar(
+            HomeTopAppBar(
                 searchQuery = state.searchQuery,
                 searchQueryChanged = { onEvent(HomeEvents.OnSearchQueryChanged(it)) },
                 searchAction = { onEvent(HomeEvents.OnSearchAction) },
@@ -82,7 +82,7 @@ fun HomeScreenContent(
 
 @Preview(name = "HomeScreen")
 @Composable
-fun HomeScreenPreview() {
+private fun HomeScreenPreview() {
     HomeScreenContent(
         state = HomeState(),
         onEvent = {},

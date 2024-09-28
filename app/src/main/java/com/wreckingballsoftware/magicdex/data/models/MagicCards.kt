@@ -1,5 +1,12 @@
 package com.wreckingballsoftware.magicdex.data.models
 
+import androidx.compose.ui.graphics.Color
+import com.wreckingballsoftware.magicdex.ui.theme.LightBlack
+import com.wreckingballsoftware.magicdex.ui.theme.LightBlue
+import com.wreckingballsoftware.magicdex.ui.theme.LightBrown
+import com.wreckingballsoftware.magicdex.ui.theme.LightGreen
+import com.wreckingballsoftware.magicdex.ui.theme.LightRed
+import com.wreckingballsoftware.magicdex.ui.theme.LightWhite
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -62,3 +69,14 @@ data class Legalities (
     var format: String? = "",
     var legality: String? = "",
 )
+
+fun Card.uiColor(): Color {
+    return when (colorIdentity?.firstOrNull()?.uppercase()) {
+        "W" -> LightWhite
+        "U" -> LightBlue
+        "B" -> LightBlack
+        "R" -> LightRed
+        "G" -> LightGreen
+        else -> LightBrown
+    }
+}

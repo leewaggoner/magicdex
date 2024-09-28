@@ -71,7 +71,7 @@ fun HomeMenu(menuItem: HomeMenuItem, onClick: (MenuItemType) -> Unit) {
 
 @Preview(name = "HomeMenu")
 @Composable
-fun HomeMenuPreview() {
+private fun HomeMenuPreview() {
     HomeMenu(
         menuItem = HomeMenuItem(
             type = MenuItemType.MAGIC_DEX,

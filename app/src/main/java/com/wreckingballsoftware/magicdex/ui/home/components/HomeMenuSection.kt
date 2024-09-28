@@ -42,7 +42,7 @@ fun HomeMenuSection(
 
 @Preview(name = "HomeMenuSection")
 @Composable
-fun HomeMenuSectionPreview() {
+private fun HomeMenuSectionPreview() {
     HomeMenuSection(
         menuItems = listOf(
             HomeMenuItem(MenuItemType.MAGIC_DEX, R.string.magic_dex, LightGreen),
