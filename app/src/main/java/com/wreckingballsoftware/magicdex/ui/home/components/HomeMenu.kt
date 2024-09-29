@@ -45,7 +45,7 @@ fun HomeMenu(menuItem: HomeMenuItem, onClick: (MenuItemType) -> Unit) {
             modifier = Modifier
                 .padding(MaterialTheme.dimensions.padding),
             text = stringResource(menuItem.nameId),
-            style = MaterialTheme.magicTypography.homeMenu
+            style = MaterialTheme.magicTypography.titleOnDarkSmall
         )
         Box(
             modifier = Modifier

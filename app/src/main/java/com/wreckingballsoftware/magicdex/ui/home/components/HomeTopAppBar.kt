@@ -71,7 +71,7 @@ fun HomeTopAppBar(
         Text(
             modifier = Modifier.padding(MaterialTheme.dimensions.padding),
             text = stringResource(R.string.app_bar_title),
-            style = MaterialTheme.magicTypography.title,
+            style = MaterialTheme.magicTypography.titleLarge,
             color = White,
         )
         Card(
