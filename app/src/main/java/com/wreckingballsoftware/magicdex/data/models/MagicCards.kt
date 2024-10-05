@@ -80,3 +80,17 @@ fun Card.uiColor(): Color {
         else -> LightBrown
     }
 }
+
+fun Card.manaImageNames(): List<String> {
+    val manaCost = manaCost ?: ""
+    val manaList = mutableListOf<String>()
+    val manaSymbols = manaCost.split("{")
+    for (manaSymbol in manaSymbols) {
+        if (manaSymbol.isNotEmpty()) {
+            val regEx = Regex("[^a-zA-Z0-9]")
+            val mana = regEx.replace(manaSymbol, "").lowercase()
+            manaList.add("mana_$mana")
+        }
+    }
+    return manaList
+}

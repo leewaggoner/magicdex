@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 
 @Immutable
 data class Dimensions(
+    val paddingVeryTiny: Dp = 2.dp,
     val paddingTiny: Dp = 4.dp,
     val paddingSmall: Dp = 8.dp,
     val padding: Dp = 16.dp,
@@ -27,8 +28,7 @@ data class Dimensions(
     val homeMenuImageSize: Dp = 96.dp,
     val homeMenuImageOffset: Dp = 32.dp,
     val menuSectionHeight: Dp = 128.dp,
-    val newsCardHeight: Dp = 100.dp,
-    val newsImageCorner: Dp = 8.dp,
+    val magicCardCorner: Dp = 4.dp,
 )
 
 val LocalDimensions = staticCompositionLocalOf { Dimensions() }

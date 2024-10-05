@@ -18,6 +18,7 @@ import com.wreckingballsoftware.magicdex.ui.components.MagicDexErrorAlert
 import com.wreckingballsoftware.magicdex.ui.components.NoTouchCircularProgress
 import com.wreckingballsoftware.magicdex.ui.magicdex.components.CardItem
 import com.wreckingballsoftware.magicdex.ui.magicdex.models.MagicDexEvent
+import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardItemData
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
 import org.koin.androidx.compose.getViewModel
 
@@ -66,7 +67,7 @@ private fun MagicDexScreenContent(
             LazyColumn {
                 items(cards) { card ->
                     CardItem(
-                        card = card,
+                        card = card.mapToMagicCardItemData(),
                         onClick = { }
                     )
                 }
