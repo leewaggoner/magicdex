@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,7 +73,7 @@ fun CardItem(
                 }
                 Text(
                     modifier = Modifier.padding(bottom = MaterialTheme.dimensions.paddingTiny),
-                    text = "${card.name ?: ""} $powerToughness",
+                    text = "${card.name} $powerToughness",
                     style = MaterialTheme.magicTypography.titleOnDarkSmall,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -81,14 +82,14 @@ fun CardItem(
                 Spacer(modifier = Modifier.weight(1f))
                 Pill(
                     modifier = Modifier.padding(bottom = MaterialTheme.dimensions.paddingTiny),
-                    text = card.type ?: ""
+                    text = card.type
                 )
-                Pill(text = card.rarity ?: "")
+                Pill(text = card.rarity)
             }
             Column(
                 horizontalAlignment = Alignment.End
             ) {
-                val cardNumber = if (card.number != null) "#${card.number}" else ""
+                val cardNumber = if (card.number.isNotEmpty()) "#${card.number}" else ""
                 Text(
                     modifier = Modifier.padding(bottom = MaterialTheme.dimensions.paddingTiny),
                     text = cardNumber,
@@ -101,7 +102,7 @@ fun CardItem(
                     model = card.imageUrl,
                     placeholder = painterResource(id = R.drawable.card_back),
                     error = painterResource(id = R.drawable.card_back),
-                    contentDescription = card.name ?: "",
+                    contentDescription = card.name,
                     onError = { error ->
                         Log.e("CardItem", "error: $error")
                     }
@@ -122,11 +123,16 @@ fun ManaCost(
         ),
     ) {
         manaList.forEach { mana ->
-            val manaId = LocalContext.current.resources.getIdentifier(
-                mana,
-                "drawable",
-                LocalContext.current.packageName
-            )
+            var manaId = 0
+            manaId = if (LocalInspectionMode.current) {
+                R.drawable.mana_w
+            } else {
+                LocalContext.current.resources.getIdentifier(
+                    mana,
+                    "drawable",
+                    LocalContext.current.packageName
+                )
+            }
             Image(
                 modifier = Modifier
                     .padding(end = MaterialTheme.dimensions.paddingVeryTiny)
