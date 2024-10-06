@@ -30,7 +30,7 @@ fun HomeScreen(
     navGraph: NavGraph,
     viewModel: HomeViewModel = getViewModel(),
 ) {
-    viewModel.oneOffEvent.collectOneTimeEvents() { oneOff ->
+    viewModel.oneOffEvent.collectOneTimeEvents { oneOff ->
         when (oneOff) {
             HomeOneOffs.OnGoToMagicDex -> navGraph.navigateToMagicDexScreen()
         }

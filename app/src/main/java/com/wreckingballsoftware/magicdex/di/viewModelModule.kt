@@ -14,7 +14,7 @@ val viewModelModule = module {
 
     viewModel {
         MagicDexViewModel(
-            cardRepo = get(),
+            pagingSource = get(),
             handle = get(),
         )
     }
