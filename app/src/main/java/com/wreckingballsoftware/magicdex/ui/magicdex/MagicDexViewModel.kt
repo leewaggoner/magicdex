@@ -61,6 +61,7 @@ class MagicDexViewModel(
                         "Error: ${result.exception.message}",
                         result.exception
                     )
+                    state = state.copy(isLoading = false)
                     onEvent(MagicDexEvent.ApiError(result.exception.message ?: "Unknown error"))
                 }
                 ApiResult.Loading -> {

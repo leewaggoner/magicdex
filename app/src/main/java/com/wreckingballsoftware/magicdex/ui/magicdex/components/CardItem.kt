@@ -123,8 +123,7 @@ fun ManaCost(
         ),
     ) {
         manaList.forEach { mana ->
-            var manaId = 0
-            manaId = if (LocalInspectionMode.current) {
+            val manaId = if (LocalInspectionMode.current) {
                 R.drawable.mana_w
             } else {
                 LocalContext.current.resources.getIdentifier(

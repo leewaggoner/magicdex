@@ -9,7 +9,7 @@ class CardService(private val httpClient: HttpClient) {
     ) {
         url {
             parameters.append("page", page.toString())
-            parameters.append("pageSize", "100")
+            parameters.append("pageSize", "20")
         }
     }
 }
