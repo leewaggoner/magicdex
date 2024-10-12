@@ -7,11 +7,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.extensions.collectOneTimeEvents
+import com.wreckingballsoftware.magicdex.ui.components.HomeTopBar
 import com.wreckingballsoftware.magicdex.ui.home.components.HomeMenuSection
-import com.wreckingballsoftware.magicdex.ui.home.components.HomeTopAppBar
 import com.wreckingballsoftware.magicdex.ui.home.components.models.HomeMenuItem
 import com.wreckingballsoftware.magicdex.ui.home.components.models.MenuItemType
 import com.wreckingballsoftware.magicdex.ui.home.models.HomeEvents
@@ -51,10 +52,20 @@ private fun HomeScreenContent(
 ) {
     Scaffold(
         topBar = {
-            HomeTopAppBar(
-                searchQuery = state.searchQuery,
-                searchQueryChanged = { onEvent(HomeEvents.OnSearchQueryChanged(it)) },
-                searchAction = { onEvent(HomeEvents.OnSearchAction) },
+            HomeTopBar(
+                title = stringResource(id = R.string.app_name),
+                query = state.searchQuery,
+                placeholder = state.searchPlaceholder,
+                onQueryChanged = { onEvent(HomeEvents.OnSearchQueryChanged(it)) },
+                onSearch = { onEvent(HomeEvents.OnSearchAction) },
+                onClear = {
+                    onEvent(HomeEvents.OnClearSearch)
+                },
+                onBack = if (state.hasBackButton) {
+                    { onEvent(HomeEvents.OnBack) }
+                } else {
+                    null
+                },
             )
         },
     ) { contentPadding ->

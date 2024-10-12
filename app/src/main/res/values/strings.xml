@@ -2,7 +2,7 @@
     <string name="app_name">MagicDex</string>
     <string name="app_bar_title">Which card\nare you looking for?</string>
     <string name="app_bar_hint">Search for card by name</string>
-    <string name="logo_image_description">\"Magic Dex Logo\"</string>
+    <string name="logo_image_description">Magic Dex Logo</string>
     <string name="search_icon_description">Search</string>
     <string name="magic_dex">MagicDex</string>
     <string name="sets">Sets</string>

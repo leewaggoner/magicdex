@@ -35,6 +35,8 @@ class HomeViewModel(
             HomeEvents.OnSearchAction -> onSearchAction()
             is HomeEvents.OnSearchQueryChanged -> onSearchQueryChanged(event.query)
             is HomeEvents.OnMenuItemClicked -> onMenuItemClicked(event.item)
+            HomeEvents.OnClearSearch -> onClearSearch()
+            HomeEvents.OnBack -> onBack()
         }
     }
 
@@ -55,6 +57,10 @@ class HomeViewModel(
         state = state.copy(searchQuery = query)
     }
 
+    private fun onClearSearch() {
+        state = state.copy(searchQuery = "")
+    }
+
     private fun onMenuItemClicked(item: MenuItemType) {
         when (item) {
             MenuItemType.MAGIC_DEX -> onGoToMagicDex()
@@ -65,6 +71,9 @@ class HomeViewModel(
             MenuItemType.FORMATS -> {
             }
         }
+    }
+
+    private fun onBack() {
     }
 
     private fun onGoToMagicDex() {
