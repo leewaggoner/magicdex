@@ -4,11 +4,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -21,6 +21,7 @@ import com.wreckingballsoftware.magicdex.ui.components.MagicDexErrorAlert
 import com.wreckingballsoftware.magicdex.ui.components.NoTouchCircularProgress
 import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardItemData
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
+import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.androidx.compose.getViewModel
 import java.util.UUID
@@ -60,7 +61,7 @@ private fun MagicDexScreenContent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(horizontal = MaterialTheme.dimensions.padding),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             when (cards.loadState.refresh) {

@@ -13,8 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.ui.components.HomeBottomBar
 import com.wreckingballsoftware.magicdex.ui.components.HomeTopBar
-import com.wreckingballsoftware.magicdex.ui.home.models.HomeEvents
-import com.wreckingballsoftware.magicdex.ui.home.models.HomeState
+import com.wreckingballsoftware.magicdex.ui.home.models.HomeScreenEvents
+import com.wreckingballsoftware.magicdex.ui.home.models.HomeScreenState
 import com.wreckingballsoftware.magicdex.ui.models.TopLevelDestination
 import com.wreckingballsoftware.magicdex.ui.navigation.MagicDexHost
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
@@ -34,8 +34,8 @@ fun HomeScreen(
 
 @Composable
 private fun HomeScreenContent(
-    state: HomeState,
-    onEvent: (HomeEvents) -> Unit,
+    state: HomeScreenState,
+    onEvent: (HomeScreenEvents) -> Unit,
     menuList: List<TopLevelDestination>,
 ) {
     val navHostController = rememberNavController()
@@ -44,16 +44,17 @@ private fun HomeScreenContent(
     Scaffold(
         topBar = {
             HomeTopBar(
-                title = stringResource(id = R.string.app_name),
+                title = stringResource(state.title),
+                hasSearch = state.hasSearch,
                 query = state.searchQuery,
-                placeholder = state.searchPlaceholder,
-                onQueryChanged = { onEvent(HomeEvents.OnSearchQueryChanged(it)) },
-                onSearch = { onEvent(HomeEvents.OnSearchAction) },
+                placeholder = stringResource(id = state.searchPlaceholder),
+                onQueryChanged = { onEvent(HomeScreenEvents.OnSearchQueryChanged(it)) },
+                onSearch = { onEvent(HomeScreenEvents.OnSearchAction) },
                 onClear = {
-                    onEvent(HomeEvents.OnClearSearch)
+                    onEvent(HomeScreenEvents.OnClearSearch)
                 },
                 onBack = if (state.hasBackButton) {
-                    { onEvent(HomeEvents.OnBack) }
+                    { onEvent(HomeScreenEvents.OnBack) }
                 } else {
                     null
                 },
@@ -63,6 +64,7 @@ private fun HomeScreenContent(
              HomeBottomBar(
                  destinations = menuList,
                  navGraph = navGraph,
+                 onScreenChange = { route -> onEvent(HomeScreenEvents.OnScreenChange(route)) },
              )
         }
     ) { contentPadding ->
@@ -80,7 +82,7 @@ private fun HomeScreenContent(
 @Composable
 private fun HomeScreenPreview() {
     HomeScreenContent(
-        state = HomeState(),
+        state = HomeScreenState(),
         onEvent = {},
         menuList = listOf(
             TopLevelDestination(

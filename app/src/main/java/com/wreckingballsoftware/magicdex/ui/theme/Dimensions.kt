@@ -20,16 +20,21 @@ data class Dimensions(
     val spaceLarge: Dp = 32.dp,
     val spaceVeryLarge: Dp = 64.dp,
     val topBarHeight: Dp = 132.dp,
+    val topBarHeightNoSearch: Dp = 72.dp,
     val topBarImageSize: Dp = 200.dp,
     val topBarImageOffsetX: Dp = 96.dp,
     val topBarImageOffsetY: Dp = 28.dp,
+    val bottomBarIconSize: Dp = 24.dp,
     val appBarCorner: Dp = 16.dp,
     val searchCorner: Dp = 32.dp,
     val homeMenuItemHeight: Dp = 60.dp,
     val homeMenuImageSize: Dp = 96.dp,
     val homeMenuImageOffset: Dp = 32.dp,
-    val menuSectionHeight: Dp = 128.dp,
+    val magicCardHeight: Dp = 200.dp,
     val magicCardCorner: Dp = 4.dp,
+    val magicCardImageHeight: Dp = 120.dp,
+    val magicCardManaSize: Dp = 16.dp,
+    val pillBorder: Dp = 1.dp,
 )
 
 val LocalDimensions = staticCompositionLocalOf { Dimensions() }

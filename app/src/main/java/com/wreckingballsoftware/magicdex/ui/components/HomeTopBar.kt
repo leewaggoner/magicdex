@@ -35,6 +35,7 @@ import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 fun HomeTopBar(
     modifier: Modifier = Modifier,
     title: String,
+    hasSearch: Boolean,
     query: String,
     placeholder: String,
     onQueryChanged: (String) -> Unit,
@@ -45,7 +46,7 @@ fun HomeTopBar(
     TopAppBar(
         modifier = modifier.then(
             Modifier
-                .height(MaterialTheme.dimensions.topBarHeight)
+                .height(if (hasSearch) MaterialTheme.dimensions.topBarHeight else MaterialTheme.dimensions.topBarHeightNoSearch)
         ),
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = LightBlack
@@ -76,19 +77,20 @@ fun HomeTopBar(
                     contentDescription = stringResource(R.string.logo_image_description),
                 )
                 Column {
-                    if (title.isNotEmpty()) {
-                        Text(
-                            text = title,
-                            color = White,
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = title.ifEmpty { "" },
+                        color = White,
+                    )
+                    if (hasSearch) {
+                        MagicSearch(
+                            query = query,
+                            placeholder = placeholder,
+                            onQueryChanged = onQueryChanged,
+                            onSearch = onSearch,
+                            onClear = onClear,
                         )
                     }
-                    MagicSearch(
-                        query = query,
-                        placeholder = placeholder,
-                        onQueryChanged = onQueryChanged,
-                        onSearch = onSearch,
-                        onClear = onClear,
-                    )
                 }
             }
         },
@@ -106,18 +108,20 @@ private fun HomeTopBarPreview(
     ) {
         HomeTopBar(
             title = params.title,
+            hasSearch = params.hasSearch,
             query = params.query,
             placeholder = params.placeholder,
             onQueryChanged = { },
             onSearch = { },
             onClear = { },
-            onBack = params.onBack
+            onBack = params.onBack,
         )
     }
 }
 
 private data class HomeTopBarParams(
     val title: String = "",
+    val hasSearch: Boolean = false,
     val query: String = "",
     val placeholder: String = "",
     val onBack: (() -> Unit)? = null,
@@ -128,17 +132,23 @@ private class HomeTopBarParamsPreviewProvider : PreviewParameterProvider<HomeTop
         HomeTopBarParams(),
         HomeTopBarParams(
             title = "Search for card",
+            hasSearch = true,
             placeholder = "Search for something",
         ),
         HomeTopBarParams(
             title = "Search for set",
+            hasSearch = true,
             placeholder = "Search for something",
             onBack = { },
         ),
         HomeTopBarParams(
             title = "Search for type",
+            hasSearch = true,
             query = "Creature",
             placeholder = "Search for something",
+        ),
+        HomeTopBarParams(
+            title = "Card Details",
             onBack = { },
         ),
     )

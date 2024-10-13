@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.wreckingballsoftware.magicdex.ui.theme.PillBorder
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
@@ -21,7 +20,7 @@ fun Pill(
     Text(
         modifier = modifier
             .border(
-                width = 1.dp,
+                width = MaterialTheme.dimensions.pillBorder,
                 color = PillBorder,
                 shape = MaterialTheme.shapes.small,
             )

@@ -26,7 +26,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.ui.components.Pill
@@ -50,7 +49,7 @@ fun CardItem(
         modifier = modifier.then(
             Modifier
                 .fillMaxWidth()
-                .height(200.dp)
+                .height(MaterialTheme.dimensions.magicCardHeight)
                 .padding(MaterialTheme.dimensions.padding)
                 .clickable { onClick(card.id) }
         ),
@@ -97,7 +96,7 @@ fun CardItem(
                 )
                 AsyncImage(
                     modifier = Modifier
-                        .height(120.dp)
+                        .height(MaterialTheme.dimensions.magicCardImageHeight)
                         .clip(RoundedCornerShape(size = MaterialTheme.dimensions.magicCardCorner)),
                     model = card.imageUrl,
                     placeholder = painterResource(id = R.drawable.card_back),
@@ -135,7 +134,7 @@ fun ManaCost(
             Image(
                 modifier = Modifier
                     .padding(end = MaterialTheme.dimensions.paddingVeryTiny)
-                    .size(16.dp),
+                    .size(MaterialTheme.dimensions.magicCardManaSize),
                 painter = painterResource(id = manaId),
                 contentDescription = mana,
             )
