@@ -3,21 +3,13 @@ package com.wreckingballsoftware.magicdex.ui.home
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
 import androidx.lifecycle.viewmodel.compose.saveable
 import com.wreckingballsoftware.magicdex.R
-import com.wreckingballsoftware.magicdex.ui.home.components.models.HomeMenuItem
-import com.wreckingballsoftware.magicdex.ui.home.components.models.MenuItemType
 import com.wreckingballsoftware.magicdex.ui.home.models.HomeEvents
-import com.wreckingballsoftware.magicdex.ui.home.models.HomeOneOffs
 import com.wreckingballsoftware.magicdex.ui.home.models.HomeState
-import com.wreckingballsoftware.magicdex.ui.theme.LightBlack
-import com.wreckingballsoftware.magicdex.ui.theme.LightBlue
-import com.wreckingballsoftware.magicdex.ui.theme.LightGreen
-import com.wreckingballsoftware.magicdex.ui.theme.LightRed
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.launch
+import com.wreckingballsoftware.magicdex.ui.models.TopLevelDestination
+import com.wreckingballsoftware.magicdex.ui.navigation.NavRoute
 
 class HomeViewModel(
     handle: SavedStateHandle,
@@ -27,28 +19,38 @@ class HomeViewModel(
         mutableStateOf(HomeState())
     }
 
-    private val _oneOffEvent = MutableSharedFlow<HomeOneOffs>()
-    val oneOffEvent = _oneOffEvent
-
     fun onEvent(event: HomeEvents) {
         when (event) {
             HomeEvents.OnSearchAction -> onSearchAction()
             is HomeEvents.OnSearchQueryChanged -> onSearchQueryChanged(event.query)
-            is HomeEvents.OnMenuItemClicked -> onMenuItemClicked(event.item)
             HomeEvents.OnClearSearch -> onClearSearch()
             HomeEvents.OnBack -> onBack()
         }
     }
 
-    fun getMenuList(): List<HomeMenuItem> =
-        MenuItemType.entries.map { menuItemType ->
-            when (menuItemType) {
-                MenuItemType.MAGIC_DEX -> HomeMenuItem(menuItemType, R.string.magic_dex, LightGreen)
-                MenuItemType.SETS -> HomeMenuItem(menuItemType, R.string.sets, LightBlack)
-                MenuItemType.TYPES -> HomeMenuItem(menuItemType, R.string.types, LightRed)
-                MenuItemType.FORMATS -> HomeMenuItem(menuItemType, R.string.formats, LightBlue)
-            }
-        }
+    fun getMenuList(): List<TopLevelDestination> =
+        listOf(
+            TopLevelDestination(
+                route = NavRoute.Cards,
+                label = R.string.cards,
+                icon = R.drawable.ico_card
+            ),
+            TopLevelDestination(
+                route = NavRoute.Sets,
+                label = R.string.sets,
+                icon = R.drawable.ico_set
+            ),
+            TopLevelDestination(
+                route = NavRoute.Types,
+                label = R.string.types,
+                icon = R.drawable.ico_type
+            ),
+            TopLevelDestination(
+                route = NavRoute.Formats,
+                label = R.string.formats,
+                icon = R.drawable.ico_format
+            ),
+        )
 
     private fun onSearchAction() {
     }
@@ -61,24 +63,6 @@ class HomeViewModel(
         state = state.copy(searchQuery = "")
     }
 
-    private fun onMenuItemClicked(item: MenuItemType) {
-        when (item) {
-            MenuItemType.MAGIC_DEX -> onGoToMagicDex()
-            MenuItemType.SETS -> {
-            }
-            MenuItemType.TYPES -> {
-            }
-            MenuItemType.FORMATS -> {
-            }
-        }
-    }
-
     private fun onBack() {
-    }
-
-    private fun onGoToMagicDex() {
-        viewModelScope.launch {
-            _oneOffEvent.emit(HomeOneOffs.OnGoToMagicDex)
-        }
     }
 }

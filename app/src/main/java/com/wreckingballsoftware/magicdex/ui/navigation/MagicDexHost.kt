@@ -1,27 +1,64 @@
 package com.wreckingballsoftware.magicdex.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.wreckingballsoftware.magicdex.ui.home.HomeScreen
-import com.wreckingballsoftware.magicdex.ui.magicdex.MagicDexScreen
+import androidx.navigation.navigation
+import com.wreckingballsoftware.magicdex.ui.cards.CardsScreen
+import com.wreckingballsoftware.magicdex.ui.formats.FormatsScreen
+import com.wreckingballsoftware.magicdex.ui.sets.SetsScreen
+import com.wreckingballsoftware.magicdex.ui.types.TypesScreen
 
 @Composable
-fun MagicDexHost() {
-    val navController = rememberNavController()
-    val navGraph = remember(navController) { NavGraph(navController) }
+fun MagicDexHost(navHostController: NavHostController, navGraph: NavGraph) {
+    val startRoute = NavRoute.CardsRoot
 
-    val startRoute = Routes.Home
+    NavHost(navController = navHostController, startDestination = startRoute) {
+        cardsGraph(navGraph)
+        setsGraph(navGraph)
+        typesGraph(navGraph)
+        formatsGraph(navGraph)
+    }
+}
 
-    NavHost(navController = navController, startDestination = startRoute) {
-        composable<Routes.Home> {
-            HomeScreen(navGraph = navGraph)
+fun NavGraphBuilder.cardsGraph(navGraph: NavGraph) {
+    navigation<NavRoute.CardsRoot>(
+        startDestination = NavRoute.Cards
+    ) {
+        composable<NavRoute.Cards> {
+            CardsScreen(navGraph = navGraph)
         }
+    }
+}
 
-        composable<Routes.MagicDex> {
-            MagicDexScreen(navGraph = navGraph)
+fun NavGraphBuilder.setsGraph(navGraph: NavGraph) {
+    navigation<NavRoute.SetsRoot>(
+        startDestination = NavRoute.Sets
+    ) {
+        composable<NavRoute.Sets> {
+            SetsScreen(navGraph = navGraph)
+        }
+    }
+}
+
+fun NavGraphBuilder.typesGraph(navGraph: NavGraph) {
+    navigation<NavRoute.TypesRoot>(
+        startDestination = NavRoute.Types
+    ) {
+        composable<NavRoute.Types> {
+            TypesScreen(navGraph = navGraph)
+        }
+    }
+}
+
+fun NavGraphBuilder.formatsGraph(navGraph: NavGraph) {
+    navigation<NavRoute.FormatsRoot>(
+        startDestination = NavRoute.Formats
+    ) {
+        composable<NavRoute.Formats> {
+            FormatsScreen(navGraph = navGraph)
         }
     }
 }

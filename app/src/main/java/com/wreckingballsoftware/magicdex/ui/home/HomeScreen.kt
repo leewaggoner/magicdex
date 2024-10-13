@@ -3,40 +3,28 @@ package com.wreckingballsoftware.magicdex.ui.home
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.wreckingballsoftware.magicdex.R
-import com.wreckingballsoftware.magicdex.extensions.collectOneTimeEvents
+import com.wreckingballsoftware.magicdex.ui.components.HomeBottomBar
 import com.wreckingballsoftware.magicdex.ui.components.HomeTopBar
-import com.wreckingballsoftware.magicdex.ui.home.components.HomeMenuSection
-import com.wreckingballsoftware.magicdex.ui.home.components.models.HomeMenuItem
-import com.wreckingballsoftware.magicdex.ui.home.components.models.MenuItemType
 import com.wreckingballsoftware.magicdex.ui.home.models.HomeEvents
-import com.wreckingballsoftware.magicdex.ui.home.models.HomeOneOffs
 import com.wreckingballsoftware.magicdex.ui.home.models.HomeState
+import com.wreckingballsoftware.magicdex.ui.models.TopLevelDestination
+import com.wreckingballsoftware.magicdex.ui.navigation.MagicDexHost
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
-import com.wreckingballsoftware.magicdex.ui.theme.LightBlack
-import com.wreckingballsoftware.magicdex.ui.theme.LightBlue
-import com.wreckingballsoftware.magicdex.ui.theme.LightGreen
-import com.wreckingballsoftware.magicdex.ui.theme.LightRed
-import com.wreckingballsoftware.magicdex.ui.theme.dimensions
+import com.wreckingballsoftware.magicdex.ui.navigation.NavRoute
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun HomeScreen(
-    navGraph: NavGraph,
     viewModel: HomeViewModel = getViewModel(),
 ) {
-    viewModel.oneOffEvent.collectOneTimeEvents { oneOff ->
-        when (oneOff) {
-            HomeOneOffs.OnGoToMagicDex -> navGraph.navigateToMagicDexScreen()
-        }
-    }
-
     HomeScreenContent(
         state = viewModel.state,
         onEvent = viewModel::onEvent,
@@ -48,8 +36,11 @@ fun HomeScreen(
 private fun HomeScreenContent(
     state: HomeState,
     onEvent: (HomeEvents) -> Unit,
-    menuList: List<HomeMenuItem>,
+    menuList: List<TopLevelDestination>,
 ) {
+    val navHostController = rememberNavController()
+    val navGraph = remember(navHostController) { NavGraph(navHostController) }
+
     Scaffold(
         topBar = {
             HomeTopBar(
@@ -68,25 +59,19 @@ private fun HomeScreenContent(
                 },
             )
         },
+        bottomBar = {
+             HomeBottomBar(
+                 destinations = menuList,
+                 navGraph = navGraph,
+             )
+        }
     ) { contentPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(contentPadding)
-                .padding(
-                    start = MaterialTheme.dimensions.padding,
-                    top = MaterialTheme.dimensions.padding,
-                    end = MaterialTheme.dimensions.padding,
-                )
         ) {
-            HomeMenuSection(
-                modifier = Modifier
-                    .padding(bottom = MaterialTheme.dimensions.paddingLarge),
-                menuItems = menuList,
-                onClick = { item ->
-                    onEvent(HomeEvents.OnMenuItemClicked(item))
-                },
-            )
+            MagicDexHost(navHostController = navHostController, navGraph = navGraph)
         }
     }
 }
@@ -98,10 +83,26 @@ private fun HomeScreenPreview() {
         state = HomeState(),
         onEvent = {},
         menuList = listOf(
-            HomeMenuItem(MenuItemType.MAGIC_DEX, R.string.magic_dex, LightGreen),
-            HomeMenuItem(MenuItemType.SETS, R.string.sets, LightBlack),
-            HomeMenuItem(MenuItemType.TYPES, R.string.types, LightRed),
-            HomeMenuItem(MenuItemType.FORMATS, R.string.formats, LightBlue),
+            TopLevelDestination(
+                route = NavRoute.Cards,
+                label = R.string.cards,
+                icon = R.drawable.ico_card
+            ),
+            TopLevelDestination(
+                route = NavRoute.Sets,
+                label = R.string.sets,
+                icon = R.drawable.ico_set
+            ),
+            TopLevelDestination(
+                route = NavRoute.Types,
+                label = R.string.types,
+                icon = R.drawable.ico_type
+            ),
+            TopLevelDestination(
+                route = NavRoute.Formats,
+                label = R.string.formats,
+                icon = R.drawable.ico_format
+            ),
         ),
     )
 }

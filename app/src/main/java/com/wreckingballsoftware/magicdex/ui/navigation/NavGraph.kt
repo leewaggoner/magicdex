@@ -2,10 +2,19 @@ package com.wreckingballsoftware.magicdex.ui.navigation
 
 import androidx.navigation.NavController
 
-class NavGraph(navController: NavController) {
-    val navigateToHomeScreen: () -> Unit = {
+class NavGraph(val navController: NavController) {
+    val navigateToDestination: (destination: NavRoute) -> Unit = { route ->
+        when (route) {
+            NavRoute.Cards -> navigateToCardsScreen()
+            NavRoute.Sets -> navigateToSetsScreen()
+            NavRoute.Types -> navigateToTypesScreen()
+            NavRoute.Formats -> navigateToFormatsScreen()
+            else -> { }
+        }
+    }
+    val navigateToCardsScreen: () -> Unit = {
         navController.navigate(
-            Routes.Home
+            NavRoute.Cards
         ) {
             popUpTo(navController.graph.id) {
                 inclusive = true
@@ -13,10 +22,34 @@ class NavGraph(navController: NavController) {
             launchSingleTop = true
         }
     }
-    val navigateToMagicDexScreen: () -> Unit = {
+    val navigateToSetsScreen: () -> Unit = {
         navController.navigate(
-            Routes.MagicDex
+            NavRoute.Sets
         ) {
+            popUpTo(navController.graph.id) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
+    }
+    val navigateToTypesScreen: () -> Unit = {
+        navController.navigate(
+            NavRoute.Types
+        ) {
+            popUpTo(navController.graph.id) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
+    }
+    val navigateToFormatsScreen: () -> Unit = {
+        navController.navigate(
+            NavRoute.Formats
+        ) {
+            popUpTo(navController.graph.id) {
+                inclusive = true
+            }
+            launchSingleTop = true
         }
     }
 }

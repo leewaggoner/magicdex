@@ -1,4 +1,4 @@
-package com.wreckingballsoftware.magicdex.ui.magicdex.components
+package com.wreckingballsoftware.magicdex.ui.cards.components
 
 import android.util.Log
 import androidx.compose.foundation.Image

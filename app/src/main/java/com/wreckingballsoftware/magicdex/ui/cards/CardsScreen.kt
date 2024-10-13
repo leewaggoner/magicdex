@@ -1,4 +1,4 @@
-package com.wreckingballsoftware.magicdex.ui.magicdex
+package com.wreckingballsoftware.magicdex.ui.cards
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,10 +15,10 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.extensions.collectOneTimeEvents
+import com.wreckingballsoftware.magicdex.ui.cards.components.CardItem
+import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenEvent
 import com.wreckingballsoftware.magicdex.ui.components.MagicDexErrorAlert
 import com.wreckingballsoftware.magicdex.ui.components.NoTouchCircularProgress
-import com.wreckingballsoftware.magicdex.ui.magicdex.components.CardItem
-import com.wreckingballsoftware.magicdex.ui.magicdex.models.MagicDexEvent
 import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardItemData
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,9 +26,9 @@ import org.koin.androidx.compose.getViewModel
 import java.util.UUID
 
 @Composable
-fun MagicDexScreen(
+fun CardsScreen(
     navGraph: NavGraph,
-    viewModel: MagicDexViewModel = getViewModel(),
+    viewModel: CardsViewModel = getViewModel(),
 ) {
     viewModel.oneOffEvent.collectOneTimeEvents { nav ->
         when (nav) {
@@ -44,9 +44,9 @@ fun MagicDexScreen(
 
     viewModel.state.alertMessage?.let { message ->
         MagicDexErrorAlert(
-            onDismissRequest = { viewModel.onEvent(MagicDexEvent.DismissDialog) },
+            onDismissRequest = { viewModel.onEvent(CardsScreenEvent.DismissDialog) },
             message = message,
-            confirmAction = { viewModel.onEvent(MagicDexEvent.DismissDialog) },
+            confirmAction = { viewModel.onEvent(CardsScreenEvent.DismissDialog) },
         )
     }
 }
@@ -54,7 +54,7 @@ fun MagicDexScreen(
 @Composable
 private fun MagicDexScreenContent(
     cards: LazyPagingItems<Card>,
-    onEvent: (MagicDexEvent) -> Unit
+    onEvent: (CardsScreenEvent) -> Unit
 ) {
     Column {
         Column(
@@ -69,7 +69,7 @@ private fun MagicDexScreenContent(
                 }
                 is androidx.paging.LoadState.Error -> {
                     val e = cards.loadState.refresh as androidx.paging.LoadState.Error
-                    onEvent(MagicDexEvent.ApiError(e.error.localizedMessage ?: "Unknown error"))
+                    onEvent(CardsScreenEvent.ApiError(e.error.localizedMessage ?: "Unknown error"))
                 }
                 else -> {
                     LazyColumn {
