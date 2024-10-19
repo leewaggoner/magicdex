@@ -17,6 +17,7 @@ import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.extensions.collectOneTimeEvents
 import com.wreckingballsoftware.magicdex.ui.cards.components.CardItem
 import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenEvent
+import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenOneOffs
 import com.wreckingballsoftware.magicdex.ui.components.MagicDexErrorAlert
 import com.wreckingballsoftware.magicdex.ui.components.NoTouchCircularProgress
 import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardItemData
@@ -34,6 +35,7 @@ fun CardsScreen(
 ) {
     viewModel.oneOffEvent.collectOneTimeEvents { nav ->
         when (nav) {
+            is CardsScreenOneOffs.NavigateToCardDetail -> navGraph.navigateToCardDetailScreen(nav.cardId)
         }
     }
 
@@ -84,7 +86,7 @@ private fun MagicDexScreenContent(
                             cards[index]?.let { card ->
                                 CardItem(
                                     card = card.mapToMagicCardItemData(),
-                                    onClick = { }
+                                    onClick = { onEvent(CardsScreenEvent.OnCardSelected(card.id ?: "")) }
                                 )
                             }
                         }

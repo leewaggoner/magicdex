@@ -20,4 +20,5 @@
     <string name="find_sets">Find card sets</string>
     <string name="find_types">Find card types</string>
     <string name="find_formats">Find game formats</string>
+    <string name="card_detail">Magic the Gathering</string>
 </resources>

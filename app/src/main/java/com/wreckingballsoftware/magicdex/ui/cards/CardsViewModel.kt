@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 private const val CARD_PAGE_SIZE = 20
 
@@ -49,7 +50,7 @@ class CardsViewModel(
             pagingSource
         }.flow
     }
-    
+
     private val _oneOffEvent = MutableSharedFlow<CardsScreenOneOffs>()
     val oneOffEvent = _oneOffEvent.asSharedFlow()
 
@@ -58,10 +59,19 @@ class CardsViewModel(
             is CardsScreenEvent.ApiError -> state = state.copy(alertMessage = event.message)
             CardsScreenEvent.DismissDialog -> state = state.copy(alertMessage = null)
             is CardsScreenEvent.Search -> onSearch(event.query)
+            is CardsScreenEvent.OnCardSelected -> onCardSelected(event.cardId)
         }
     }
 
     private fun onSearch(query: String) {
         _search.value = query
+    }
+
+    private fun onCardSelected(cardId: String) {
+        if (cardId.isNotEmpty()) {
+            viewModelScope.launch {
+                _oneOffEvent.emit(CardsScreenOneOffs.NavigateToCardDetail(cardId))
+            }
+        }
     }
 }

@@ -22,6 +22,11 @@ class NavGraph(val navController: NavController) {
             launchSingleTop = true
         }
     }
+    val navigateToCardDetailScreen: (cardId: String) -> Unit = { cardId ->
+        navController.navigate(
+            NavRoute.CardDetail(cardId)
+        )
+    }
     val navigateToSetsScreen: () -> Unit = {
         navController.navigate(
             NavRoute.Sets
@@ -51,5 +56,8 @@ class NavGraph(val navController: NavController) {
             }
             launchSingleTop = true
         }
+    }
+    val navigateBack: () -> Unit = {
+        navController.popBackStack()
     }
 }

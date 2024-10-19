@@ -9,6 +9,8 @@ sealed interface NavRoute {
     @Serializable
     data object Cards : NavRoute
     @Serializable
+    data class CardDetail(val cardId: String) : NavRoute
+    @Serializable
     data object SetsRoot : NavRoute
     @Serializable
     data object Sets : NavRoute

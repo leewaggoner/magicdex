@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.wreckingballsoftware.magicdex.ui.carddetail.CardDetailScreen
 import com.wreckingballsoftware.magicdex.ui.cards.CardsScreen
 import com.wreckingballsoftware.magicdex.ui.formats.FormatsScreen
 import com.wreckingballsoftware.magicdex.ui.sets.SetsScreen
@@ -41,6 +42,11 @@ fun NavGraphBuilder.cardsGraph(
             CardsScreen(
                 navGraph = navGraph,
                 searchQuery = searchQuery
+            )
+        }
+        composable<NavRoute.CardDetail> {
+            CardDetailScreen(
+                navGraph = navGraph,
             )
         }
     }

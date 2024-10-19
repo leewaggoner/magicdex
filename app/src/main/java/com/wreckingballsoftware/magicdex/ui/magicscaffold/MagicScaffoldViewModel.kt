@@ -66,43 +66,13 @@ class MagicScaffoldViewModel(
     }
 
     private fun onScreenChange(route: NavRoute) {
-        state = when (route) {
-            NavRoute.Cards -> {
-                state.copy(
-                    title = TopBarState.CARD.title,
-                    hasSearch = TopBarState.CARD.hasSearch,
-                    searchPlaceholder = TopBarState.CARD.searchPlaceholder,
-                    hasBackButton = TopBarState.CARD.hasBackButton,
-                )
-            }
-            NavRoute.Sets -> {
-                state.copy(
-                    title = TopBarState.SET.title,
-                    hasSearch = TopBarState.SET.hasSearch,
-                    searchPlaceholder = TopBarState.SET.searchPlaceholder,
-                    hasBackButton = TopBarState.SET.hasBackButton,
-                )
-            }
-            NavRoute.Types -> {
-                state.copy(
-                    title = TopBarState.TYPE.title,
-                    hasSearch = TopBarState.TYPE.hasSearch,
-                    searchPlaceholder = TopBarState.TYPE.searchPlaceholder,
-                    hasBackButton = TopBarState.TYPE.hasBackButton,
-                )
-            }
-            NavRoute.Formats -> {
-                state.copy(
-                    title = TopBarState.FORMAT.title,
-                    hasSearch = TopBarState.FORMAT.hasSearch,
-                    searchPlaceholder = TopBarState.FORMAT.searchPlaceholder,
-                    hasBackButton = TopBarState.FORMAT.hasBackButton,
-                )
-            }
-            else -> {
-                state
-            }
-        }
+        val topBarState = TopBarState.getCurrentTopBarState(route)
+        state = state.copy(
+            title = topBarState.title,
+            hasSearch = topBarState.hasSearch,
+            searchPlaceholder = topBarState.searchPlaceholder,
+            hasBackButton = topBarState.hasBackButton,
+        )
     }
 
     private fun onBack() {
