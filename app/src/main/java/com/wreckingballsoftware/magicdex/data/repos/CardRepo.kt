@@ -7,7 +7,11 @@ import io.ktor.client.call.body
 class CardRepo(
     private val cardService: CardService
 ) {
-    suspend fun getCards(startIndex: Int, limit: Int): MagicCards {
-        return cardService.getCards(startIndex, limit).body<MagicCards>()
+    suspend fun getCards(startIndex: Int, limit: Int, query: String): MagicCards {
+        return cardService.getCards(
+            startIndex,
+            limit,
+            query,
+        ).body<MagicCards>()
     }
 }

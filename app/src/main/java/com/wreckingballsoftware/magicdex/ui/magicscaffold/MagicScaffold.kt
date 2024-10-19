@@ -73,7 +73,11 @@ private fun HomeScreenContent(
                 .fillMaxSize()
                 .padding(contentPadding)
         ) {
-            MagicDexHost(navHostController = navHostController, navGraph = navGraph)
+            MagicDexHost(
+                navHostController = navHostController,
+                navGraph = navGraph,
+                searchQuery = state.searchQuery,
+            )
         }
     }
 }

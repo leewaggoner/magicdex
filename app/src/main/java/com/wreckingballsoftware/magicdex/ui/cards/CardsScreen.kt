@@ -29,12 +29,15 @@ import java.util.UUID
 @Composable
 fun CardsScreen(
     navGraph: NavGraph,
+    searchQuery: String,
     viewModel: CardsViewModel = getViewModel(),
 ) {
     viewModel.oneOffEvent.collectOneTimeEvents { nav ->
         when (nav) {
         }
     }
+
+    viewModel.onEvent(CardsScreenEvent.Search(searchQuery))
 
     val cardList = viewModel.cards.collectAsLazyPagingItems()
 

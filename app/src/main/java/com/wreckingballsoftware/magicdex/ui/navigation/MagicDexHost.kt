@@ -12,23 +12,36 @@ import com.wreckingballsoftware.magicdex.ui.sets.SetsScreen
 import com.wreckingballsoftware.magicdex.ui.types.TypesScreen
 
 @Composable
-fun MagicDexHost(navHostController: NavHostController, navGraph: NavGraph) {
+fun MagicDexHost(
+    navHostController: NavHostController,
+    navGraph: NavGraph,
+    searchQuery: String,
+    ) {
     val startRoute = NavRoute.CardsRoot
 
     NavHost(navController = navHostController, startDestination = startRoute) {
-        cardsGraph(navGraph)
+        cardsGraph(
+            navGraph,
+            searchQuery,
+        )
         setsGraph(navGraph)
         typesGraph(navGraph)
         formatsGraph(navGraph)
     }
 }
 
-fun NavGraphBuilder.cardsGraph(navGraph: NavGraph) {
+fun NavGraphBuilder.cardsGraph(
+    navGraph: NavGraph,
+    searchQuery: String,
+) {
     navigation<NavRoute.CardsRoot>(
         startDestination = NavRoute.Cards
     ) {
         composable<NavRoute.Cards> {
-            CardsScreen(navGraph = navGraph)
+            CardsScreen(
+                navGraph = navGraph,
+                searchQuery = searchQuery
+            )
         }
     }
 }

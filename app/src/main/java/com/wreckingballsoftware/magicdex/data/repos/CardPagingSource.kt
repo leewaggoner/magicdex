@@ -7,6 +7,7 @@ import com.wreckingballsoftware.magicdex.data.models.Card
 class CardPagingSource(
     private val cardRepo: CardRepo,
 ) : PagingSource<Int, Card>() {
+    var query: String = ""
     override fun getRefreshKey(state: PagingState<Int, Card>): Int? {
         return state.anchorPosition
     }
@@ -15,7 +16,11 @@ class CardPagingSource(
         return try {
             val startIndex = params.key ?: 1
             val limit = params.loadSize
-            val response = cardRepo.getCards(startIndex = startIndex, limit = limit)
+            val response = cardRepo.getCards(
+                startIndex = startIndex,
+                limit = limit,
+                query = query
+            )
 
             LoadResult.Page(
                 data = response.cards,
