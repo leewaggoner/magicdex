@@ -1,4 +1,4 @@
-package com.wreckingballsoftware.magicdex.ui.home
+package com.wreckingballsoftware.magicdex.ui.magicscaffold
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -6,27 +6,27 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
 import androidx.lifecycle.viewmodel.compose.saveable
 import com.wreckingballsoftware.magicdex.R
-import com.wreckingballsoftware.magicdex.ui.home.models.HomeScreenEvents
-import com.wreckingballsoftware.magicdex.ui.home.models.HomeScreenState
+import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldEvents
+import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldState
 import com.wreckingballsoftware.magicdex.ui.models.TopBarState
 import com.wreckingballsoftware.magicdex.ui.models.TopLevelDestination
 import com.wreckingballsoftware.magicdex.ui.navigation.NavRoute
 
-class HomeViewModel(
+class MagicScaffoldViewModel(
     handle: SavedStateHandle,
 ) : ViewModel() {
     @OptIn(SavedStateHandleSaveableApi::class)
     var state by handle.saveable {
-        mutableStateOf(HomeScreenState())
+        mutableStateOf(MagicScaffoldState())
     }
 
-    fun onEvent(event: HomeScreenEvents) {
+    fun onEvent(event: MagicScaffoldEvents) {
         when (event) {
-            HomeScreenEvents.OnSearchAction -> onSearchAction()
-            is HomeScreenEvents.OnSearchQueryChanged -> onSearchQueryChanged(event.query)
-            HomeScreenEvents.OnClearSearch -> onClearSearch()
-            is HomeScreenEvents.OnScreenChange -> onScreenChange(event.route)
-            HomeScreenEvents.OnBack -> onBack()
+            MagicScaffoldEvents.OnSearchAction -> onSearchAction()
+            is MagicScaffoldEvents.OnSearchQueryChanged -> onSearchQueryChanged(event.query)
+            MagicScaffoldEvents.OnClearSearch -> onClearSearch()
+            is MagicScaffoldEvents.OnScreenChange -> onScreenChange(event.route)
+            MagicScaffoldEvents.OnBack -> onBack()
         }
     }
 

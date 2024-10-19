@@ -1,4 +1,4 @@
-package com.wreckingballsoftware.magicdex.ui.home
+package com.wreckingballsoftware.magicdex.ui.magicscaffold
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,8 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.ui.components.HomeBottomBar
 import com.wreckingballsoftware.magicdex.ui.components.HomeTopBar
-import com.wreckingballsoftware.magicdex.ui.home.models.HomeScreenEvents
-import com.wreckingballsoftware.magicdex.ui.home.models.HomeScreenState
+import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldEvents
+import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldState
 import com.wreckingballsoftware.magicdex.ui.models.TopLevelDestination
 import com.wreckingballsoftware.magicdex.ui.navigation.MagicDexHost
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
@@ -22,8 +22,8 @@ import com.wreckingballsoftware.magicdex.ui.navigation.NavRoute
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun HomeScreen(
-    viewModel: HomeViewModel = getViewModel(),
+fun MagicScaffold(
+    viewModel: MagicScaffoldViewModel = getViewModel(),
 ) {
     HomeScreenContent(
         state = viewModel.state,
@@ -34,8 +34,8 @@ fun HomeScreen(
 
 @Composable
 private fun HomeScreenContent(
-    state: HomeScreenState,
-    onEvent: (HomeScreenEvents) -> Unit,
+    state: MagicScaffoldState,
+    onEvent: (MagicScaffoldEvents) -> Unit,
     menuList: List<TopLevelDestination>,
 ) {
     val navHostController = rememberNavController()
@@ -48,13 +48,13 @@ private fun HomeScreenContent(
                 hasSearch = state.hasSearch,
                 query = state.searchQuery,
                 placeholder = stringResource(id = state.searchPlaceholder),
-                onQueryChanged = { onEvent(HomeScreenEvents.OnSearchQueryChanged(it)) },
-                onSearch = { onEvent(HomeScreenEvents.OnSearchAction) },
+                onQueryChanged = { onEvent(MagicScaffoldEvents.OnSearchQueryChanged(it)) },
+                onSearch = { onEvent(MagicScaffoldEvents.OnSearchAction) },
                 onClear = {
-                    onEvent(HomeScreenEvents.OnClearSearch)
+                    onEvent(MagicScaffoldEvents.OnClearSearch)
                 },
                 onBack = if (state.hasBackButton) {
-                    { onEvent(HomeScreenEvents.OnBack) }
+                    { onEvent(MagicScaffoldEvents.OnBack) }
                 } else {
                     null
                 },
@@ -64,7 +64,7 @@ private fun HomeScreenContent(
              HomeBottomBar(
                  destinations = menuList,
                  navGraph = navGraph,
-                 onScreenChange = { route -> onEvent(HomeScreenEvents.OnScreenChange(route)) },
+                 onScreenChange = { route -> onEvent(MagicScaffoldEvents.OnScreenChange(route)) },
              )
         }
     ) { contentPadding ->
@@ -82,7 +82,7 @@ private fun HomeScreenContent(
 @Composable
 private fun HomeScreenPreview() {
     HomeScreenContent(
-        state = HomeScreenState(),
+        state = MagicScaffoldState(),
         onEvent = {},
         menuList = listOf(
             TopLevelDestination(
