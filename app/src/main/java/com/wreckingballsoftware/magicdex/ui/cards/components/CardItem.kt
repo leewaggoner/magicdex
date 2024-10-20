@@ -122,14 +122,20 @@ fun ManaCost(
         ),
     ) {
         manaList.forEach { mana ->
-            val manaId = if (LocalInspectionMode.current) {
+            var manaId = 0
+            manaId = if (LocalInspectionMode.current) {
                 R.drawable.mana_w
             } else {
-                LocalContext.current.resources.getIdentifier(
+                val id = LocalContext.current.resources.getIdentifier(
                     mana,
                     "drawable",
                     LocalContext.current.packageName
                 )
+                if (id != 0) {
+                    id
+                } else {
+                    R.drawable.mana_unexpected
+                }
             }
             Image(
                 modifier = Modifier

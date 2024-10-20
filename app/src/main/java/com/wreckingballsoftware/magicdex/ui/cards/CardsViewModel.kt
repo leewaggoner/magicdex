@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
 import androidx.lifecycle.viewmodel.compose.saveable
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.wreckingballsoftware.magicdex.data.repos.CardPagingSource
 import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenEvent
 import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenOneOffs
@@ -24,7 +25,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-private const val CARD_PAGE_SIZE = 20
+private const val CARD_PAGE_SIZE = 50
 
 class CardsViewModel(
     private val pagingSource: CardPagingSource,
@@ -44,22 +45,28 @@ class CardsViewModel(
         )
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    val cards = search.debounce(timeoutMillis = 300).flatMapLatest { query ->
+    val cards = search.debounce(timeoutMillis = 300).flatMapLatest { searchQuery ->
         Pager(PagingConfig(pageSize = CARD_PAGE_SIZE)) {
-            pagingSource.query = query
-            pagingSource
+            pagingSource.apply {
+                query = searchQuery
+            }
         }.flow
-    }
+    }.cachedIn(scope = viewModelScope)
 
     private val _oneOffEvent = MutableSharedFlow<CardsScreenOneOffs>()
     val oneOffEvent = _oneOffEvent.asSharedFlow()
 
     fun onEvent(event: CardsScreenEvent) {
         when (event) {
-            is CardsScreenEvent.ApiError -> state = state.copy(alertMessage = event.message)
-            CardsScreenEvent.DismissDialog -> state = state.copy(alertMessage = null)
+            is CardsScreenEvent.ApiError -> onError(event.message)
             is CardsScreenEvent.Search -> onSearch(event.query)
             is CardsScreenEvent.OnCardSelected -> onCardSelected(event.cardId)
+        }
+    }
+
+    private fun onError(message: String) {
+        viewModelScope.launch {
+            _oneOffEvent.emit(CardsScreenOneOffs.ShowError(message))
         }
     }
 

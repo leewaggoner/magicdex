@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.wreckingballsoftware.magicdex.ui.theme.Blue
 
 @Composable
 fun NoTouchCircularProgress() {
@@ -22,6 +24,12 @@ fun NoTouchCircularProgress() {
                 onClick = { },
             )
     ) {
-        CircularProgressIndicator()
+        CircularProgressIndicator(color = Blue)
     }
+}
+
+@Preview
+@Composable
+fun NoTouchCircularProgressPreview() {
+    NoTouchCircularProgress()
 }

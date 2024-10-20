@@ -4,11 +4,12 @@ import androidx.compose.ui.graphics.Color
 import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.data.models.manaImageNames
 import com.wreckingballsoftware.magicdex.data.models.uiColor
+import com.wreckingballsoftware.magicdex.ui.theme.Transparent
 
 data class MagicCardItemData(
     val id: String = "",
     val name: String = "",
-    val colorIdentity: Color = Color.Transparent,
+    val colorIdentity: Color = Transparent,
     val type: String = "",
     val rarity: String = "",
     val manaCost: List<String> = emptyList(),

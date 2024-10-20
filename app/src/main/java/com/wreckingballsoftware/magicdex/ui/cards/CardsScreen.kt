@@ -1,11 +1,17 @@
 package com.wreckingballsoftware.magicdex.ui.cards
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,12 +24,12 @@ import com.wreckingballsoftware.magicdex.extensions.collectOneTimeEvents
 import com.wreckingballsoftware.magicdex.ui.cards.components.CardItem
 import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenEvent
 import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenOneOffs
-import com.wreckingballsoftware.magicdex.ui.components.MagicDexErrorAlert
-import com.wreckingballsoftware.magicdex.ui.components.NoTouchCircularProgress
 import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardItemData
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
+import com.wreckingballsoftware.magicdex.ui.theme.Blue
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 import java.util.UUID
 
@@ -33,9 +39,16 @@ fun CardsScreen(
     searchQuery: String,
     viewModel: CardsViewModel = getViewModel(),
 ) {
+    val snackState = remember { SnackbarHostState() }
+    val snackScope = rememberCoroutineScope()
     viewModel.oneOffEvent.collectOneTimeEvents { nav ->
         when (nav) {
             is CardsScreenOneOffs.NavigateToCardDetail -> navGraph.navigateToCardDetailScreen(nav.cardId)
+            is CardsScreenOneOffs.ShowError -> {
+                snackScope.launch {
+                    snackState.showSnackbar(nav.message)
+                }
+            }
         }
     }
 
@@ -43,17 +56,23 @@ fun CardsScreen(
 
     val cardList = viewModel.cards.collectAsLazyPagingItems()
 
-    MagicDexScreenContent(
-        cards = cardList,
-        onEvent = viewModel::onEvent,
-    )
-
-    viewModel.state.alertMessage?.let { message ->
-        MagicDexErrorAlert(
-            onDismissRequest = { viewModel.onEvent(CardsScreenEvent.DismissDialog) },
-            message = message,
-            confirmAction = { viewModel.onEvent(CardsScreenEvent.DismissDialog) },
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+        MagicDexScreenContent(
+            cards = cardList,
+            onEvent = viewModel::onEvent,
         )
+        SnackbarHost(hostState = snackState)
+        when {
+            cardList.loadState.refresh is androidx.paging.LoadState.Loading -> {
+                CircularProgressIndicator(color =  Blue)
+            }
+            cardList.loadState.append is androidx.paging.LoadState.Loading -> {
+                CircularProgressIndicator(color =  Blue)
+            }
+        }
     }
 }
 
@@ -70,9 +89,6 @@ private fun MagicDexScreenContent(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             when (cards.loadState.refresh) {
-                is androidx.paging.LoadState.Loading -> {
-                    NoTouchCircularProgress()
-                }
                 is androidx.paging.LoadState.Error -> {
                     val e = cards.loadState.refresh as androidx.paging.LoadState.Error
                     onEvent(CardsScreenEvent.ApiError(e.error.localizedMessage ?: "Unknown error"))
