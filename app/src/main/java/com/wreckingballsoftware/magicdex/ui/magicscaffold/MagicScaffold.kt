@@ -9,11 +9,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.wreckingballsoftware.magicdex.R
+import com.wreckingballsoftware.magicdex.extensions.collectOneTimeEvents
 import com.wreckingballsoftware.magicdex.ui.components.ScaffoldBottomBar
 import com.wreckingballsoftware.magicdex.ui.components.ScaffoldTopBar
 import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldEvents
+import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldOneOffs
 import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldState
 import com.wreckingballsoftware.magicdex.ui.models.TopLevelDestination
 import com.wreckingballsoftware.magicdex.ui.navigation.MagicDexHost
@@ -25,8 +28,20 @@ import org.koin.androidx.compose.getViewModel
 fun MagicScaffold(
     viewModel: MagicScaffoldViewModel = getViewModel(),
 ) {
+    //for MagicDexHost
     val navHostController = rememberNavController()
     val navGraph = remember(navHostController) { NavGraph(navHostController) }
+
+    viewModel.oneOffEvent.collectOneTimeEvents { nav ->
+        when (nav) {
+            is MagicScaffoldOneOffs.OnBack -> navGraph.navigateBack()
+        }
+    }
+
+    //set ScaffoldTopBar state
+    val navBackStackEntry = navGraph.navController.currentBackStackEntryAsState().value
+    val currentDestination = navBackStackEntry?.destination
+    viewModel.onEvent(MagicScaffoldEvents.OnScreenChange(NavRoute.fromDestination(currentDestination)))
 
     MagicScaffoldContent(
         magicDexHost = {

@@ -3,14 +3,19 @@ package com.wreckingballsoftware.magicdex.ui.magicscaffold
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
 import androidx.lifecycle.viewmodel.compose.saveable
 import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldEvents
+import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldOneOffs
 import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldState
 import com.wreckingballsoftware.magicdex.ui.models.TopBarState
 import com.wreckingballsoftware.magicdex.ui.models.TopLevelDestination
 import com.wreckingballsoftware.magicdex.ui.navigation.NavRoute
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 
 class MagicScaffoldViewModel(
     handle: SavedStateHandle,
@@ -19,6 +24,9 @@ class MagicScaffoldViewModel(
     var state by handle.saveable {
         mutableStateOf(MagicScaffoldState())
     }
+
+    private val _oneOffEvent = MutableSharedFlow<MagicScaffoldOneOffs>()
+    val oneOffEvent = _oneOffEvent.asSharedFlow()
 
     fun onEvent(event: MagicScaffoldEvents) {
         when (event) {
@@ -76,5 +84,8 @@ class MagicScaffoldViewModel(
     }
 
     private fun onBack() {
+        viewModelScope.launch {
+            _oneOffEvent.emit(MagicScaffoldOneOffs.OnBack)
+        }
     }
 }
