@@ -103,7 +103,7 @@ private fun MagicScaffoldContent(
     }
 }
 
-@Preview(name = "Magic Scaffold Content", showSystemUi = true, showBackground = true)
+@Preview(name = "Magic Scaffold Content", showSystemUi = true)
 @Composable
 private fun MagicScaffoldPreview() {
     MagicScaffoldContent(

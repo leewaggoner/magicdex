@@ -20,16 +20,17 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MagicSearch(
+    modifier: Modifier = Modifier,
     query: String,
     placeholder: String,
     onQueryChanged: (String) -> Unit,
     onSearch: (String) -> Unit,
     onClear: () -> Unit,
 ) {
-    var focusManager = LocalFocusManager.current
+    val focusManager = LocalFocusManager.current
 
     SearchBar(
-        modifier = Modifier,
+        modifier = modifier,
         inputField = {
             SearchBarDefaults.InputField(
                 query = query,
