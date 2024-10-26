@@ -26,7 +26,7 @@ import com.wreckingballsoftware.magicdex.ui.theme.White
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 
 @Composable
-fun HomeBottomBar(
+fun ScaffoldBottomBar(
     modifier: Modifier = Modifier,
     destinations: List<TopLevelDestination>,
     navGraph: NavGraph,
@@ -78,7 +78,7 @@ fun HomeBottomBar(
 @Composable
 fun HomeBottomBarPreview() {
     val navHostController = rememberNavController()
-    HomeBottomBar(
+    ScaffoldBottomBar(
         destinations = listOf(
             TopLevelDestination(
                 route = NavRoute.Cards,

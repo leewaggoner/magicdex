@@ -3,6 +3,7 @@ package com.wreckingballsoftware.magicdex.ui.carddetail
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailEvents
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailState
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
@@ -17,7 +18,6 @@ fun CardDetailScreen(
         CardDetailContent(
             state = viewModel.state,
             onEvent = viewModel::onEvent,
-            navGraph = navGraph,
         )
     }
 }
@@ -26,9 +26,17 @@ fun CardDetailScreen(
 private fun CardDetailContent(
     state: CardDetailState,
     onEvent: (CardDetailEvents) -> Unit,
-    navGraph: NavGraph,
 ) {
     Column {
         Text(text = state.card?.name ?: "")
     }
+}
+
+@Preview(name = "CardDetailContent")
+@Composable
+fun CardDetailContentPreview() {
+    CardDetailContent(
+        state = CardDetailState(),
+        onEvent = { },
+    )
 }

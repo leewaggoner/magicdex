@@ -32,7 +32,7 @@ import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeTopBar(
+fun ScaffoldTopBar(
     modifier: Modifier = Modifier,
     title: String,
     hasSearch: Boolean,
@@ -106,7 +106,7 @@ private fun HomeTopBarPreview(
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        HomeTopBar(
+        ScaffoldTopBar(
             title = params.title,
             hasSearch = params.hasSearch,
             query = params.query,

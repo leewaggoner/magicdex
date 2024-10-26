@@ -11,8 +11,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.wreckingballsoftware.magicdex.R
-import com.wreckingballsoftware.magicdex.ui.components.HomeBottomBar
-import com.wreckingballsoftware.magicdex.ui.components.HomeTopBar
+import com.wreckingballsoftware.magicdex.ui.components.ScaffoldBottomBar
+import com.wreckingballsoftware.magicdex.ui.components.ScaffoldTopBar
 import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldEvents
 import com.wreckingballsoftware.magicdex.ui.magicscaffold.models.MagicScaffoldState
 import com.wreckingballsoftware.magicdex.ui.models.TopLevelDestination
@@ -25,7 +25,18 @@ import org.koin.androidx.compose.getViewModel
 fun MagicScaffold(
     viewModel: MagicScaffoldViewModel = getViewModel(),
 ) {
-    HomeScreenContent(
+    val navHostController = rememberNavController()
+    val navGraph = remember(navHostController) { NavGraph(navHostController) }
+
+    MagicScaffoldContent(
+        magicDexHost = {
+            MagicDexHost(
+                navHostController = navHostController,
+                navGraph = navGraph,
+                searchQuery = viewModel.state.searchQuery,
+            )
+        },
+        navGraph = navGraph,
         state = viewModel.state,
         onEvent = viewModel::onEvent,
         menuList = viewModel.getMenuList(),
@@ -33,17 +44,16 @@ fun MagicScaffold(
 }
 
 @Composable
-private fun HomeScreenContent(
+private fun MagicScaffoldContent(
+    magicDexHost: @Composable () -> Unit,
+    navGraph: NavGraph,
     state: MagicScaffoldState,
     onEvent: (MagicScaffoldEvents) -> Unit,
     menuList: List<TopLevelDestination>,
 ) {
-    val navHostController = rememberNavController()
-    val navGraph = remember(navHostController) { NavGraph(navHostController) }
-
     Scaffold(
         topBar = {
-            HomeTopBar(
+            ScaffoldTopBar(
                 title = stringResource(state.title),
                 hasSearch = state.hasSearch,
                 query = state.searchQuery,
@@ -61,7 +71,7 @@ private fun HomeScreenContent(
             )
         },
         bottomBar = {
-             HomeBottomBar(
+             ScaffoldBottomBar(
                  destinations = menuList,
                  navGraph = navGraph,
                  onScreenChange = { route -> onEvent(MagicScaffoldEvents.OnScreenChange(route)) },
@@ -73,21 +83,19 @@ private fun HomeScreenContent(
                 .fillMaxSize()
                 .padding(contentPadding)
         ) {
-            MagicDexHost(
-                navHostController = navHostController,
-                navGraph = navGraph,
-                searchQuery = state.searchQuery,
-            )
+            magicDexHost()
         }
     }
 }
 
-@Preview(name = "HomeScreen")
+@Preview(name = "Magic Scaffold Content", showSystemUi = true, showBackground = true)
 @Composable
-private fun HomeScreenPreview() {
-    HomeScreenContent(
+private fun MagicScaffoldPreview() {
+    MagicScaffoldContent(
+        magicDexHost = { },
+        navGraph = NavGraph(rememberNavController()),
         state = MagicScaffoldState(),
-        onEvent = {},
+        onEvent = { },
         menuList = listOf(
             TopLevelDestination(
                 route = NavRoute.Cards,
