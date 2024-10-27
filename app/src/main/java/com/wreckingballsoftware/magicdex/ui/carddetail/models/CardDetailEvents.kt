@@ -1,5 +1,5 @@
 package com.wreckingballsoftware.magicdex.ui.carddetail.models
 
 sealed interface CardDetailEvents {
-    data object OnBack : CardDetailEvents
+    data class OnTabSelected(val index: Int) : CardDetailEvents
 }

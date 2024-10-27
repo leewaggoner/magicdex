@@ -18,6 +18,18 @@ data class CustomTypeStyles(
         fontSize = 32.sp,
         lineHeight = 40.sp,
     ),
+    val titleMedium: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 22.sp,
+        lineHeight = 30.sp,
+    ),
+    val titleSmall: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+    ),
     val titleOnDarkSmall: TextStyle = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
@@ -31,6 +43,18 @@ data class CustomTypeStyles(
         fontSize = 11.sp,
         lineHeight = 19.sp,
         color = White,
+    ),
+    val label: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 11.sp,
+        lineHeight = 19.sp,
+    ),
+    val body: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 22.sp,
     ),
 )
 

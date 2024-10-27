@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.data.network.ApiResult
 import com.wreckingballsoftware.magicdex.data.repos.CardRepo
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailEvents
@@ -30,15 +31,16 @@ class CardDetailViewModel(
                 }
             }
         }
+        state = state.copy(tabs = listOf(R.string.about, R.string.card_text, R.string.misc))
     }
 
     fun onEvent(event: CardDetailEvents) {
         when (event) {
-            CardDetailEvents.OnBack -> onBack()
+            is CardDetailEvents.OnTabSelected -> onTabSelected(event.index)
         }
     }
 
-    private fun onBack() {
-
+    private fun onTabSelected(index: Int) {
+        state = state.copy(selected = index)
     }
 }

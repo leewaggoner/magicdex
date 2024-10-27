@@ -21,7 +21,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.extensions.collectOneTimeEvents
-import com.wreckingballsoftware.magicdex.ui.cards.components.CardItem
+import com.wreckingballsoftware.magicdex.ui.components.CardItem
 import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenEvent
 import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenOneOffs
 import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardItemData

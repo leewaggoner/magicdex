@@ -1,7 +1,6 @@
-package com.wreckingballsoftware.magicdex.ui.cards.components
+package com.wreckingballsoftware.magicdex.ui.components
 
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -19,16 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.wreckingballsoftware.magicdex.R
-import com.wreckingballsoftware.magicdex.ui.components.Pill
 import com.wreckingballsoftware.magicdex.ui.models.MagicCardItemData
 import com.wreckingballsoftware.magicdex.ui.theme.LightBlack
 import com.wreckingballsoftware.magicdex.ui.theme.LightBlue
@@ -56,6 +52,9 @@ fun CardItem(
         colors = CardDefaults.cardColors(
             containerColor = card.colorIdentity,
         ),
+        elevation = CardDefaults.elevatedCardElevation(
+            defaultElevation = 4.dp,
+        )
     ) {
         Row(
             modifier = Modifier
@@ -107,43 +106,6 @@ fun CardItem(
                     }
                 )
             }
-        }
-    }
-}
-
-@Composable
-fun ManaCost(
-    modifier: Modifier = Modifier,
-    manaList: List<String>
-) {
-    Row(
-        modifier = modifier.then(
-            Modifier.padding(vertical = MaterialTheme.dimensions.paddingTiny)
-        ),
-    ) {
-        manaList.forEach { mana ->
-            var manaId = 0
-            manaId = if (LocalInspectionMode.current) {
-                R.drawable.mana_w
-            } else {
-                val id = LocalContext.current.resources.getIdentifier(
-                    mana,
-                    "drawable",
-                    LocalContext.current.packageName
-                )
-                if (id != 0) {
-                    id
-                } else {
-                    R.drawable.mana_unexpected
-                }
-            }
-            Image(
-                modifier = Modifier
-                    .padding(end = MaterialTheme.dimensions.paddingVeryTiny)
-                    .size(MaterialTheme.dimensions.magicCardManaSize),
-                painter = painterResource(id = manaId),
-                contentDescription = mana,
-            )
         }
     }
 }
