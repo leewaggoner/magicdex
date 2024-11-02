@@ -78,10 +78,8 @@ fun CardItem(
                 )
                 ManaCost(manaList = card.manaCost)
                 Spacer(modifier = Modifier.weight(1f))
-                Pill(
-                    modifier = Modifier.padding(bottom = MaterialTheme.dimensions.paddingTiny),
-                    text = card.type
-                )
+                Pill(text = card.type)
+                Spacer(modifier = Modifier.height(MaterialTheme.dimensions.paddingTiny))
                 Pill(text = card.rarity)
             }
             Column(

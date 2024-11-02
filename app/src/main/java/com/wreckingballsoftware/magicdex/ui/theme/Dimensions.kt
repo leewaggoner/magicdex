@@ -6,7 +6,9 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Immutable
 data class Dimensions(
@@ -35,6 +37,9 @@ data class Dimensions(
     val magicCardImageHeight: Dp = 120.dp,
     val magicCardManaSize: Dp = 16.dp,
     val pillBorder: Dp = 1.dp,
+    val sheetPeekHeight: Dp = 148.dp,
+
+    val magicCardManaTextSize: TextUnit = 16.sp,
 )
 
 val LocalDimensions = staticCompositionLocalOf { Dimensions() }

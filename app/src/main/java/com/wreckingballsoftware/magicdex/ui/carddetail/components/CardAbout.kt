@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,6 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.data.models.manaImageNames
+import com.wreckingballsoftware.magicdex.extensions.inlineContent
+import com.wreckingballsoftware.magicdex.extensions.withImagesToAnnotatedText
 import com.wreckingballsoftware.magicdex.ui.components.ManaCost
 import com.wreckingballsoftware.magicdex.ui.components.PowerCard
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
@@ -40,13 +43,19 @@ fun CardAbout(
         )
         Text(
             modifier = Modifier
-                .padding(top = MaterialTheme.dimensions.paddingSmall),
-            text = stringResource(id = R.string.mana_cost),
+                .padding(top = MaterialTheme.dimensions.padding),
+            text = card.type ?: "",
             style = MaterialTheme.magicTypography.titleSmall
+        )
+        Text(
+            modifier = Modifier
+                .padding(top = MaterialTheme.dimensions.padding),
+            text = card.rarity ?: "",
+            style = MaterialTheme.magicTypography.body
         )
         Row(
             modifier = Modifier
-                .padding(top = MaterialTheme.dimensions.paddingSmall)
+                .padding(top = MaterialTheme.dimensions.padding)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -60,7 +69,7 @@ fun CardAbout(
         }
         Row(
             modifier = Modifier
-                .padding(top = MaterialTheme.dimensions.paddingSmall)
+                .padding(top = MaterialTheme.dimensions.padding)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -72,31 +81,57 @@ fun CardAbout(
             )
             Text(
                 text = card.cmc.toString(),
+                style = MaterialTheme.magicTypography.body
             )
         }
         Text(
             modifier = Modifier
-                .padding(top = MaterialTheme.dimensions.paddingSmall),
+                .padding(top = MaterialTheme.dimensions.padding),
             text = stringResource(id = R.string.card_text),
             style = MaterialTheme.magicTypography.titleSmall
         )
-        Text(
-            text = card.text ?: "",
+        val cardText = card.text ?: ""
+        BasicText(
+            modifier = Modifier
+                .padding(top = MaterialTheme.dimensions.paddingSmall),
+            text = cardText.withImagesToAnnotatedText(),
+            inlineContent = cardText.inlineContent(),
+            style = MaterialTheme.magicTypography.body
         )
         PowerCard(
             modifier = Modifier
                 .padding(
                     top = MaterialTheme.dimensions.padding,
-                    bottom = MaterialTheme.dimensions.padding,
                 )
                 .fillMaxWidth(),
             power = card.power ?: "",
             toughness = card.toughness ?: ""
         )
+        if (!card.flavor.isNullOrEmpty()) {
+            Text(
+                modifier = Modifier
+                    .padding(top = MaterialTheme.dimensions.padding),
+                text = stringResource(id = R.string.flavor_text),
+                style = MaterialTheme.magicTypography.titleSmall
+            )
+            Text(
+                modifier = Modifier
+                    .padding(top = MaterialTheme.dimensions.paddingSmall),
+                text = card.flavor ?: "",
+                style = MaterialTheme.magicTypography.body
+            )
+        }
         Text(
-            modifier = Modifier,
-            text = stringResource(id = R.string.types),
+            modifier = Modifier
+                .padding(top = MaterialTheme.dimensions.padding),
+            text = stringResource(id = R.string.set),
             style = MaterialTheme.magicTypography.titleSmall
+        )
+        Text(
+            modifier = Modifier
+                .padding(top = MaterialTheme.dimensions.paddingSmall),
+            text = card.setName ?: "",
+            style = MaterialTheme.magicTypography.body
         )
     }
 }
@@ -106,12 +141,16 @@ fun CardAbout(
 fun CardAboutPreview() {
     CardAbout(
         card = Card(
-            name = "Card Name",
-            manaCost = "{W}{U}{B}{R}{G}",
+            name = "Archangel Avacyn",
+            type = "Legendary Creature — Angel",
+            manaCost = "{3}{W}{W}",
             cmc = 5.0,
-            text = "Flash\nFlying, vigilance\nWhen Archangel Avacyn enters the battlefield, creatures you control gain indestructible until end of turn.\nWhen a non-Angel creature you control dies, transform Archangel Avacyn at the beginning of the next upkeep.",
+            text = "Flash\nFlying, vigilance\n{W} When Archangel Avacyn enters the battlefield, {T} creatures you control gain indestructible until end of turn.\nWhen a non-Angel creature you control dies, transform Archangel Avacyn at the beginning of the next upkeep.",
+            flavor = "A golden helix streaked skyward from the Helvault. A thunderous explosion shattered the silver monolith and Avacyn emerged, free from her prison at last.",
             power = "4",
             toughness = "4",
+            rarity = "Mythic Rare",
+            set = "SOI",
         )
     )
 }

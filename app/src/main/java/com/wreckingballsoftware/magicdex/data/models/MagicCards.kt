@@ -1,6 +1,7 @@
 package com.wreckingballsoftware.magicdex.data.models
 
 import androidx.compose.ui.graphics.Color
+import com.wreckingballsoftware.magicdex.extensions.imageName
 import com.wreckingballsoftware.magicdex.ui.theme.LightBlack
 import com.wreckingballsoftware.magicdex.ui.theme.LightBlue
 import com.wreckingballsoftware.magicdex.ui.theme.LightBrown
@@ -87,9 +88,7 @@ fun Card.manaImageNames(): List<String> {
     val manaSymbols = manaCost.split("{")
     for (manaSymbol in manaSymbols) {
         if (manaSymbol.isNotEmpty()) {
-            val regEx = Regex("[^a-zA-Z0-9]")
-            val mana = regEx.replace(manaSymbol, "").lowercase()
-            manaList.add("mana_$mana")
+            manaList.add(manaSymbol.imageName())
         }
     }
     return manaList

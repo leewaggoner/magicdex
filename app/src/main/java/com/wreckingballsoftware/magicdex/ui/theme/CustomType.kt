@@ -54,7 +54,7 @@ data class CustomTypeStyles(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
-        lineHeight = 22.sp,
+        lineHeight = 20.sp,
     ),
 )
 

@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.data.models.Card
@@ -27,6 +25,7 @@ import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailEvents
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailState
 import com.wreckingballsoftware.magicdex.ui.components.CardDetailTab
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
+import com.wreckingballsoftware.magicdex.ui.theme.LightWhite
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 import org.koin.androidx.compose.getViewModel
@@ -60,11 +59,12 @@ private fun CardDetailContent(
         modifier = Modifier
             .fillMaxSize(),
         scaffoldState = scaffoldState,
+        sheetPeekHeight = MaterialTheme.dimensions.sheetPeekHeight,
+        sheetContainerColor = LightWhite,
         sheetContent = {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(600.dp)
             ) {
                 CardDetailTab(
                     tabs = state.tabs,
