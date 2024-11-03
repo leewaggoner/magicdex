@@ -19,7 +19,7 @@ import com.wreckingballsoftware.magicdex.extensions.inlineContent
 import com.wreckingballsoftware.magicdex.extensions.withImagesToAnnotatedText
 import com.wreckingballsoftware.magicdex.ui.components.ManaCost
 import com.wreckingballsoftware.magicdex.ui.components.PowerCard
-import com.wreckingballsoftware.magicdex.ui.models.MagicCardAboutData
+import com.wreckingballsoftware.magicdex.domain.models.MagicCardAboutData
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 

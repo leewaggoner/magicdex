@@ -16,7 +16,7 @@ import com.wreckingballsoftware.magicdex.data.models.Legalities
 import com.wreckingballsoftware.magicdex.data.models.Rulings
 import com.wreckingballsoftware.magicdex.ui.components.LegalityCard
 import com.wreckingballsoftware.magicdex.ui.components.RulingCard
-import com.wreckingballsoftware.magicdex.ui.models.MagicCardMiscData
+import com.wreckingballsoftware.magicdex.domain.models.MagicCardMiscData
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 

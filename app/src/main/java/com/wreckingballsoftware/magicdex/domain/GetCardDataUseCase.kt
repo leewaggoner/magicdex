@@ -3,12 +3,12 @@ package com.wreckingballsoftware.magicdex.domain
 import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.data.network.ApiResult
 import com.wreckingballsoftware.magicdex.data.repos.CardRepo
-import com.wreckingballsoftware.magicdex.ui.models.MagicCardAboutData
-import com.wreckingballsoftware.magicdex.ui.models.MagicCardArtData
-import com.wreckingballsoftware.magicdex.ui.models.MagicCardMiscData
-import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardAboutData
-import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardArtData
-import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardMiscData
+import com.wreckingballsoftware.magicdex.domain.models.MagicCardAboutData
+import com.wreckingballsoftware.magicdex.domain.models.MagicCardArtData
+import com.wreckingballsoftware.magicdex.domain.models.MagicCardMiscData
+import com.wreckingballsoftware.magicdex.domain.models.mapToMagicCardAboutData
+import com.wreckingballsoftware.magicdex.domain.models.mapToMagicCardArtData
+import com.wreckingballsoftware.magicdex.domain.models.mapToMagicCardMiscData
 
 class GetCardDataUseCase(
     private val cardRepo: CardRepo,

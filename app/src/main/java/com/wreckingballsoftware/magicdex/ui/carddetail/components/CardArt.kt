@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.wreckingballsoftware.magicdex.R
-import com.wreckingballsoftware.magicdex.ui.models.MagicCardArtData
+import com.wreckingballsoftware.magicdex.domain.models.MagicCardArtData
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 

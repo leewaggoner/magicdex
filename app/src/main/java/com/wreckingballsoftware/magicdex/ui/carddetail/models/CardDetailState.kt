@@ -1,9 +1,9 @@
 package com.wreckingballsoftware.magicdex.ui.carddetail.models
 
+import com.wreckingballsoftware.magicdex.domain.models.MagicCardAboutData
+import com.wreckingballsoftware.magicdex.domain.models.MagicCardArtData
+import com.wreckingballsoftware.magicdex.domain.models.MagicCardMiscData
 import com.wreckingballsoftware.magicdex.ui.models.DetailTab
-import com.wreckingballsoftware.magicdex.ui.models.MagicCardAboutData
-import com.wreckingballsoftware.magicdex.ui.models.MagicCardArtData
-import com.wreckingballsoftware.magicdex.ui.models.MagicCardMiscData
 
 data class CardDetailState(
     val aboutData: MagicCardAboutData = MagicCardAboutData(),

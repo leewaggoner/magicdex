@@ -1,4 +1,4 @@
-package com.wreckingballsoftware.magicdex.ui.models
+package com.wreckingballsoftware.magicdex.domain.models
 
 import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.data.models.Legalities
