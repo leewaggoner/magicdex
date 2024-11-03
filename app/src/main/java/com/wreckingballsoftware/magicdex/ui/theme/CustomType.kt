@@ -56,6 +56,12 @@ data class CustomTypeStyles(
         fontSize = 14.sp,
         lineHeight = 20.sp,
     ),
+    val bodyBold: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+    ),
 )
 
 val LocalCustomTypography = staticCompositionLocalOf { CustomTypeStyles() }

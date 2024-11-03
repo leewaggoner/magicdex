@@ -32,4 +32,6 @@
     <string name="set">Set</string>
     <string name="flavor_text">Flavor Text</string>
     <string name="art">Art</string>
+    <string name="rulings">Rulings</string>
+    <string name="legalities">Legalities</string>
 </resources>

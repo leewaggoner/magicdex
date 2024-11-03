@@ -22,6 +22,7 @@ import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.ui.carddetail.components.CardAbout
 import com.wreckingballsoftware.magicdex.ui.carddetail.components.CardArt
+import com.wreckingballsoftware.magicdex.ui.carddetail.components.CardMisc
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailEvents
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailState
 import com.wreckingballsoftware.magicdex.ui.components.CardDetailTab
@@ -88,6 +89,10 @@ private fun CardDetailContent(
                         )
                     }
                     2 -> {
+                        CardMisc(
+                            rulings = state.card?.rulings ?: emptyList(),
+                            legalities = state.card?.legalities ?: emptyList(),
+                        )
                     }
                 }
             }
