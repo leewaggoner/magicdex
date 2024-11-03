@@ -21,9 +21,12 @@ import coil.compose.AsyncImage
 import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.ui.carddetail.components.CardAbout
+import com.wreckingballsoftware.magicdex.ui.carddetail.components.CardArt
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailEvents
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailState
 import com.wreckingballsoftware.magicdex.ui.components.CardDetailTab
+import com.wreckingballsoftware.magicdex.ui.models.MagicCardAboutData
+import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardAboutData
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
 import com.wreckingballsoftware.magicdex.ui.theme.LightWhite
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
@@ -74,10 +77,15 @@ private fun CardDetailContent(
                 when (state.selected) {
                     0 -> {
                         CardAbout(
-                            card = state.card ?: Card(),
+                            cardData = state.card?.mapToMagicCardAboutData() ?: MagicCardAboutData(),
                         )
                     }
                     1 -> {
+                        CardArt(
+                            name = state.card?.name ?: "",
+                            imageUrl = state.card?.imageUrl ?: "",
+                            artist = state.card?.artist ?: "",
+                        )
                     }
                     2 -> {
                     }

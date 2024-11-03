@@ -31,7 +31,7 @@ class CardDetailViewModel(
                 }
             }
         }
-        state = state.copy(tabs = listOf(R.string.about, R.string.card_text, R.string.misc))
+        state = state.copy(tabs = listOf(R.string.about, R.string.art, R.string.misc))
     }
 
     fun onEvent(event: CardDetailEvents) {

@@ -15,19 +15,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.wreckingballsoftware.magicdex.R
-import com.wreckingballsoftware.magicdex.data.models.Card
-import com.wreckingballsoftware.magicdex.data.models.manaImageNames
 import com.wreckingballsoftware.magicdex.extensions.inlineContent
 import com.wreckingballsoftware.magicdex.extensions.withImagesToAnnotatedText
 import com.wreckingballsoftware.magicdex.ui.components.ManaCost
 import com.wreckingballsoftware.magicdex.ui.components.PowerCard
+import com.wreckingballsoftware.magicdex.ui.models.MagicCardAboutData
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 
 @Composable
 fun CardAbout(
     modifier: Modifier = Modifier,
-    card: Card,
+    cardData: MagicCardAboutData,
 ) {
     Column(
         modifier = modifier.then(
@@ -38,19 +37,19 @@ fun CardAbout(
         )
     ) {
         Text(
-            text = card.name ?: "",
+            text = cardData.name,
             style = MaterialTheme.magicTypography.titleMedium
         )
         Text(
             modifier = Modifier
                 .padding(top = MaterialTheme.dimensions.padding),
-            text = card.type ?: "",
+            text = cardData.type,
             style = MaterialTheme.magicTypography.titleSmall
         )
         Text(
             modifier = Modifier
                 .padding(top = MaterialTheme.dimensions.padding),
-            text = card.rarity ?: "",
+            text = cardData.rarity,
             style = MaterialTheme.magicTypography.body
         )
         Row(
@@ -65,7 +64,7 @@ fun CardAbout(
                 text = stringResource(id = R.string.mana),
                 style = MaterialTheme.magicTypography.body
             )
-            ManaCost(manaList = card.manaImageNames())
+            ManaCost(manaList = cardData.manaCost)
         }
         Row(
             modifier = Modifier
@@ -80,7 +79,7 @@ fun CardAbout(
                 style = MaterialTheme.magicTypography.body,
             )
             Text(
-                text = card.cmc.toString(),
+                text = cardData.cmc.toString(),
                 style = MaterialTheme.magicTypography.body
             )
         }
@@ -90,7 +89,7 @@ fun CardAbout(
             text = stringResource(id = R.string.card_text),
             style = MaterialTheme.magicTypography.titleSmall
         )
-        val cardText = card.text ?: ""
+        val cardText = cardData.text
         BasicText(
             modifier = Modifier
                 .padding(top = MaterialTheme.dimensions.paddingSmall),
@@ -104,10 +103,10 @@ fun CardAbout(
                     top = MaterialTheme.dimensions.padding,
                 )
                 .fillMaxWidth(),
-            power = card.power ?: "",
-            toughness = card.toughness ?: ""
+            power = cardData.power,
+            toughness = cardData.toughness
         )
-        if (!card.flavor.isNullOrEmpty()) {
+        if (cardData.flavor.isNotEmpty()) {
             Text(
                 modifier = Modifier
                     .padding(top = MaterialTheme.dimensions.padding),
@@ -117,7 +116,7 @@ fun CardAbout(
             Text(
                 modifier = Modifier
                     .padding(top = MaterialTheme.dimensions.paddingSmall),
-                text = card.flavor ?: "",
+                text = cardData.flavor,
                 style = MaterialTheme.magicTypography.body
             )
         }
@@ -130,7 +129,7 @@ fun CardAbout(
         Text(
             modifier = Modifier
                 .padding(top = MaterialTheme.dimensions.paddingSmall),
-            text = card.setName ?: "",
+            text = cardData.setName,
             style = MaterialTheme.magicTypography.body
         )
     }
@@ -140,17 +139,17 @@ fun CardAbout(
 @Composable
 fun CardAboutPreview() {
     CardAbout(
-        card = Card(
+        cardData = MagicCardAboutData(
             name = "Archangel Avacyn",
             type = "Legendary Creature — Angel",
-            manaCost = "{3}{W}{W}",
+            manaCost = listOf("{3}", "{W}", "{W}"),
             cmc = 5.0,
             text = "Flash\nFlying, vigilance\n{W} When Archangel Avacyn enters the battlefield, {T} creatures you control gain indestructible until end of turn.\nWhen a non-Angel creature you control dies, transform Archangel Avacyn at the beginning of the next upkeep.",
             flavor = "A golden helix streaked skyward from the Helvault. A thunderous explosion shattered the silver monolith and Avacyn emerged, free from her prison at last.",
             power = "4",
             toughness = "4",
             rarity = "Mythic Rare",
-            set = "SOI",
+            setName = "10th Edition",
         )
     )
 }
