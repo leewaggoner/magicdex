@@ -19,7 +19,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.wreckingballsoftware.magicdex.R
-import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.ui.carddetail.components.CardAbout
 import com.wreckingballsoftware.magicdex.ui.carddetail.components.CardArt
 import com.wreckingballsoftware.magicdex.ui.carddetail.components.CardMisc
@@ -27,8 +26,6 @@ import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailEvents
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailState
 import com.wreckingballsoftware.magicdex.ui.components.CardDetailTab
 import com.wreckingballsoftware.magicdex.ui.models.DetailTab
-import com.wreckingballsoftware.magicdex.ui.models.MagicCardAboutData
-import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardAboutData
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
 import com.wreckingballsoftware.magicdex.ui.theme.LightWhite
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
@@ -79,21 +76,17 @@ private fun CardDetailContent(
                 when (state.selected) {
                     DetailTab.ABOUT -> {
                         CardAbout(
-                            cardData = state.card?.mapToMagicCardAboutData() ?: MagicCardAboutData(),
+                            aboutData = state.aboutData,
                         )
                     }
                     DetailTab.ART -> {
                         CardArt(
-                            name = state.card?.name ?: "",
-                            imageUrl = state.card?.imageUrl ?: "",
-                            artist = state.card?.artist ?: "",
+                            artData = state.artData,
                         )
                     }
                     DetailTab.MISC -> {
                         CardMisc(
-                            name = state.card?.name ?: "",
-                            rulings = state.card?.rulings ?: emptyList(),
-                            legalities = state.card?.legalities ?: emptyList(),
+                            miscData = state.miscData,
                         )
                     }
                 }
@@ -108,8 +101,8 @@ private fun CardDetailContent(
         ) {
             AsyncImage(
                 modifier = Modifier.fillMaxWidth(),
-                model = state.card?.imageUrl,
-                contentDescription = state.card?.name ?: "",
+                model = state.artData.imageUrl,
+                contentDescription = state.artData.name,
                 placeholder = painterResource(id = R.drawable.card_back),
                 error = painterResource(id = R.drawable.card_back),
                 onError = { error ->
@@ -118,7 +111,7 @@ private fun CardDetailContent(
             )
             Text(
                 modifier = Modifier.padding(top = MaterialTheme.dimensions.paddingSmall),
-                text = stringResource(id = R.string.artist, state.card?.artist ?: ""),
+                text = stringResource(id = R.string.artist, state.artData.artist),
                 style = MaterialTheme.magicTypography.label,
             )
         }
@@ -129,11 +122,7 @@ private fun CardDetailContent(
 @Composable
 fun CardDetailContentPreview() {
     CardDetailContent(
-        state = CardDetailState(
-            card = Card(
-                types = listOf("Creature", "Human", "Warrior"),
-            )
-        ),
+        state = CardDetailState(),
         onEvent = { },
     )
 }

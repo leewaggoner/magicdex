@@ -17,15 +17,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.wreckingballsoftware.magicdex.R
+import com.wreckingballsoftware.magicdex.ui.models.MagicCardArtData
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 
 @Composable
 fun CardArt(
     modifier: Modifier = Modifier,
-    name: String,
-    imageUrl: String,
-    artist: String,
+    artData: MagicCardArtData
 ) {
     Column(
         modifier = modifier.then(
@@ -36,7 +35,7 @@ fun CardArt(
         )
     ) {
         Text(
-            text = name,
+            text = artData.name,
             style = MaterialTheme.magicTypography.titleMedium
         )
         AsyncImage(
@@ -44,8 +43,8 @@ fun CardArt(
                 .padding(top = MaterialTheme.dimensions.padding)
                 .align(Alignment.CenterHorizontally)
                 .height(MaterialTheme.dimensions.cardArtHeight),
-            model = imageUrl,
-            contentDescription = name,
+            model = artData.imageUrl,
+            contentDescription = artData.name,
             placeholder = painterResource(id = R.drawable.card_back),
             error = painterResource(id = R.drawable.card_back),
             onError = { error ->
@@ -57,7 +56,7 @@ fun CardArt(
                 .padding(
                     top = MaterialTheme.dimensions.paddingSmall,
                 ),
-            text = stringResource(id = R.string.artist, artist),
+            text = stringResource(id = R.string.artist, artData.artist),
             style = MaterialTheme.magicTypography.label,
         )
     }
@@ -67,8 +66,10 @@ fun CardArt(
 @Composable
 fun CardArtPreview() {
     CardArt(
-        name = "Archangel Avacyn",
-        imageUrl = "",
-        artist = "DaVinci"
+        artData = MagicCardArtData(
+            name = "Archangel Avacyn",
+            imageUrl = "",
+            artist = "DaVinci"
+        )
     )
 }

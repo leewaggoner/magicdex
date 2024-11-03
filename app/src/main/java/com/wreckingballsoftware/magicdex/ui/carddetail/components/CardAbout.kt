@@ -26,7 +26,7 @@ import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 @Composable
 fun CardAbout(
     modifier: Modifier = Modifier,
-    cardData: MagicCardAboutData,
+    aboutData: MagicCardAboutData,
 ) {
     Column(
         modifier = modifier.then(
@@ -37,19 +37,19 @@ fun CardAbout(
         )
     ) {
         Text(
-            text = cardData.name,
+            text = aboutData.name,
             style = MaterialTheme.magicTypography.titleMedium
         )
         Text(
             modifier = Modifier
                 .padding(top = MaterialTheme.dimensions.padding),
-            text = cardData.type,
+            text = aboutData.type,
             style = MaterialTheme.magicTypography.titleSmall
         )
         Text(
             modifier = Modifier
                 .padding(top = MaterialTheme.dimensions.padding),
-            text = cardData.rarity,
+            text = aboutData.rarity,
             style = MaterialTheme.magicTypography.body
         )
         Row(
@@ -64,7 +64,7 @@ fun CardAbout(
                 text = stringResource(id = R.string.mana),
                 style = MaterialTheme.magicTypography.body
             )
-            ManaCost(manaList = cardData.manaCost)
+            ManaCost(manaList = aboutData.manaCost)
         }
         PowerCard(
             modifier = Modifier
@@ -72,8 +72,8 @@ fun CardAbout(
                     top = MaterialTheme.dimensions.padding,
                 )
                 .fillMaxWidth(),
-            power = cardData.power,
-            toughness = cardData.toughness
+            power = aboutData.power,
+            toughness = aboutData.toughness
         )
         Row(
             modifier = Modifier
@@ -88,7 +88,7 @@ fun CardAbout(
                 style = MaterialTheme.magicTypography.body,
             )
             Text(
-                text = cardData.cmc.toString(),
+                text = aboutData.cmc.toString(),
                 style = MaterialTheme.magicTypography.body
             )
         }
@@ -98,7 +98,7 @@ fun CardAbout(
             text = stringResource(id = R.string.card_text),
             style = MaterialTheme.magicTypography.titleSmall
         )
-        val cardText = cardData.text
+        val cardText = aboutData.text
         BasicText(
             modifier = Modifier
                 .padding(top = MaterialTheme.dimensions.paddingSmall),
@@ -106,7 +106,7 @@ fun CardAbout(
             inlineContent = cardText.inlineContent(),
             style = MaterialTheme.magicTypography.body
         )
-        if (cardData.flavor.isNotEmpty()) {
+        if (aboutData.flavor.isNotEmpty()) {
             Text(
                 modifier = Modifier
                     .padding(top = MaterialTheme.dimensions.padding),
@@ -116,7 +116,7 @@ fun CardAbout(
             Text(
                 modifier = Modifier
                     .padding(top = MaterialTheme.dimensions.paddingSmall),
-                text = cardData.flavor,
+                text = aboutData.flavor,
                 style = MaterialTheme.magicTypography.body
             )
         }
@@ -129,7 +129,7 @@ fun CardAbout(
         Text(
             modifier = Modifier
                 .padding(top = MaterialTheme.dimensions.paddingSmall),
-            text = cardData.setName,
+            text = aboutData.setName,
             style = MaterialTheme.magicTypography.body
         )
     }
@@ -139,7 +139,7 @@ fun CardAbout(
 @Composable
 fun CardAboutPreview() {
     CardAbout(
-        cardData = MagicCardAboutData(
+        aboutData = MagicCardAboutData(
             name = "Archangel Avacyn",
             type = "Legendary Creature — Angel",
             manaCost = listOf("{3}", "{W}", "{W}"),
