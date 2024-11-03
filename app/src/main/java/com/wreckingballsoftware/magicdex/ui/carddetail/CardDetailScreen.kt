@@ -26,6 +26,7 @@ import com.wreckingballsoftware.magicdex.ui.carddetail.components.CardMisc
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailEvents
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailState
 import com.wreckingballsoftware.magicdex.ui.components.CardDetailTab
+import com.wreckingballsoftware.magicdex.ui.models.DetailTab
 import com.wreckingballsoftware.magicdex.ui.models.MagicCardAboutData
 import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardAboutData
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
@@ -73,23 +74,24 @@ private fun CardDetailContent(
                 CardDetailTab(
                     tabs = state.tabs,
                     selected = state.selected,
-                    onClick = { index -> onEvent(CardDetailEvents.OnTabSelected(index)) }
+                    onClick = { tab -> onEvent(CardDetailEvents.OnTabSelected(tab)) }
                 )
                 when (state.selected) {
-                    0 -> {
+                    DetailTab.ABOUT -> {
                         CardAbout(
                             cardData = state.card?.mapToMagicCardAboutData() ?: MagicCardAboutData(),
                         )
                     }
-                    1 -> {
+                    DetailTab.ART -> {
                         CardArt(
                             name = state.card?.name ?: "",
                             imageUrl = state.card?.imageUrl ?: "",
                             artist = state.card?.artist ?: "",
                         )
                     }
-                    2 -> {
+                    DetailTab.MISC -> {
                         CardMisc(
+                            name = state.card?.name ?: "",
                             rulings = state.card?.rulings ?: emptyList(),
                             legalities = state.card?.legalities ?: emptyList(),
                         )

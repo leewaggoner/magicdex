@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.wreckingballsoftware.magicdex.R
+import com.wreckingballsoftware.magicdex.ui.models.DetailTab
 import com.wreckingballsoftware.magicdex.ui.theme.LightBlue
 import com.wreckingballsoftware.magicdex.ui.theme.LightRed
 import com.wreckingballsoftware.magicdex.ui.theme.White
@@ -17,9 +17,9 @@ import com.wreckingballsoftware.magicdex.ui.theme.White
 @Composable
 fun CardDetailTab(
     modifier: Modifier = Modifier,
-    tabs: List<Int>,
-    selected: Int,
-    onClick: (Int) -> Unit
+    tabs: List<DetailTab>,
+    selected: DetailTab,
+    onClick: (DetailTab) -> Unit
 ) {
     TabRow(
         modifier = modifier,
@@ -27,21 +27,19 @@ fun CardDetailTab(
         containerColor = LightRed,
         contentColor = White,
         indicator = { tabPositions ->
-            if (selected < tabPositions.size) {
-                SecondaryIndicator(
-                    modifier = Modifier.tabIndicatorOffset(tabPositions[selected]),
-                    color = LightBlue
-                )
-            }
+            SecondaryIndicator(
+                modifier = Modifier.tabIndicatorOffset(tabPositions[selected.ordinal]),
+                color = LightBlue
+            )
         }
     ) {
-        tabs.forEachIndexed { index, tab ->
+        tabs.forEach { tab ->
             Tab(
                 text = {
-                    Text(text = stringResource(id = tab))
+                    Text(text = stringResource(id = tab.titleId))
                },
-                selected = index == selected,
-                onClick = { onClick(index) }
+                selected = tab == selected,
+                onClick = { onClick(tab) }
             )
         }
     }
@@ -51,8 +49,8 @@ fun CardDetailTab(
 @Composable
 fun CardDetailTabPreview() {
     CardDetailTab(
-        tabs = listOf(R.string.about, R.string.card_text, R.string.misc),
-        selected = 0,
+        tabs = listOf(DetailTab.ABOUT, DetailTab.ART, DetailTab.MISC),
+        selected = DetailTab.ABOUT,
         onClick = { }
     )
 }

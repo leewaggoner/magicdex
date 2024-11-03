@@ -4,18 +4,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.wreckingballsoftware.magicdex.ui.theme.White
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 
 @Composable
-fun MiscCard(
-    date: String,
-    ruling: String,
+fun LegalityCard(
+    title: String,
+    text: String,
 ) {
     Column(
         modifier = Modifier
@@ -24,18 +27,24 @@ fun MiscCard(
     ) {
         Card(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = White,
+            ),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 4.dp,
+            ),
         ) {
             Column(
                 modifier = Modifier.padding(MaterialTheme.dimensions.padding)
             ) {
                 Text(
-                    text = date,
+                    text = title,
                     style = MaterialTheme.magicTypography.bodyBold
                 )
                 Text(
                     modifier = Modifier.padding(top = MaterialTheme.dimensions.paddingSmall),
-                    text = ruling,
+                    text = text,
                     style = MaterialTheme.magicTypography.body
                 )
             }
@@ -43,13 +52,11 @@ fun MiscCard(
     }
 }
 
-@Preview(name = "RulingCard")
+@Preview(name = "LegalityCard")
 @Composable
-fun RulingCardPreview() {
-    MaterialTheme {
-        MiscCard(
-            date = "2016-04-08",
-            ruling = "Archangel Avacyn’s delayed triggered ability triggers at the beginning of the next upkeep regardless of whose turn it is."
-        )
-    }
+fun LegalityCardPreview() {
+    LegalityCard(
+        title = "Commander",
+        text = "Legal"
+    )
 }

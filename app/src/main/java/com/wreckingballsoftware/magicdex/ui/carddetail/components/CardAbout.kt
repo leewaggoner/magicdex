@@ -66,6 +66,15 @@ fun CardAbout(
             )
             ManaCost(manaList = cardData.manaCost)
         }
+        PowerCard(
+            modifier = Modifier
+                .padding(
+                    top = MaterialTheme.dimensions.padding,
+                )
+                .fillMaxWidth(),
+            power = cardData.power,
+            toughness = cardData.toughness
+        )
         Row(
             modifier = Modifier
                 .padding(top = MaterialTheme.dimensions.padding)
@@ -96,15 +105,6 @@ fun CardAbout(
             text = cardText.withImagesToAnnotatedText(),
             inlineContent = cardText.inlineContent(),
             style = MaterialTheme.magicTypography.body
-        )
-        PowerCard(
-            modifier = Modifier
-                .padding(
-                    top = MaterialTheme.dimensions.padding,
-                )
-                .fillMaxWidth(),
-            power = cardData.power,
-            toughness = cardData.toughness
         )
         if (cardData.flavor.isNotEmpty()) {
             Text(

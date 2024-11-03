@@ -14,13 +14,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.data.models.Legalities
 import com.wreckingballsoftware.magicdex.data.models.Rulings
-import com.wreckingballsoftware.magicdex.ui.components.MiscCard
+import com.wreckingballsoftware.magicdex.ui.components.LegalityCard
+import com.wreckingballsoftware.magicdex.ui.components.RulingCard
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 
 @Composable
 fun CardMisc(
     modifier: Modifier = Modifier,
+    name: String,
     rulings: List<Rulings>,
     legalities: List<Legalities>,
 ) {
@@ -32,16 +34,22 @@ fun CardMisc(
                 .verticalScroll(state = rememberScrollState())
         )
     ) {
-        Column {
+        Text(
+            text = name,
+            style = MaterialTheme.magicTypography.titleMedium
+        )
+        Column(
+            modifier = Modifier.padding(top = MaterialTheme.dimensions.padding)
+        ) {
             if (rulings.isNotEmpty()) {
                 Text(
                     text = stringResource(id = R.string.rulings),
                     style = MaterialTheme.magicTypography.titleSmall
                 )
                 rulings.forEach { ruling ->
-                    MiscCard(
-                        date = ruling.date ?: "",
-                        ruling = ruling.text ?: ""
+                    RulingCard(
+                        title = ruling.date ?: "",
+                        text = ruling.text ?: ""
                     )
                 }
             }
@@ -51,9 +59,9 @@ fun CardMisc(
                     style = MaterialTheme.magicTypography.titleSmall
                 )
                 legalities.forEach { legality ->
-                    MiscCard(
-                        date = legality.format ?: "",
-                        ruling = legality.legality ?: ""
+                    LegalityCard(
+                        title = legality.format ?: "",
+                        text = legality.legality ?: ""
                     )
                 }
             }
@@ -66,6 +74,7 @@ fun CardMisc(
 fun CardMiscPreview() {
     MaterialTheme {
         CardMisc(
+            name = "Card Name",
             rulings = listOf(
                 Rulings(
                     date = "2021-01-01",
