@@ -22,7 +22,7 @@ val viewModelModule = module {
 
     viewModel {
         CardDetailViewModel(
-            cardRepo = get(),
+            getCardDataUseCase = get(),
             handle = get(),
         )
     }
