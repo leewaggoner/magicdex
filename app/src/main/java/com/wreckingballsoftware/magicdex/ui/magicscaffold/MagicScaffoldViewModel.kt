@@ -81,6 +81,7 @@ class MagicScaffoldViewModel(
             searchPlaceholder = topBarState.searchPlaceholder,
             hasBackButton = topBarState.hasBackButton,
         )
+        onEvent(MagicScaffoldEvents.OnClearSearch)
     }
 
     private fun onBack() {

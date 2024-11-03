@@ -30,7 +30,6 @@ fun ScaffoldBottomBar(
     modifier: Modifier = Modifier,
     destinations: List<TopLevelDestination>,
     navGraph: NavGraph,
-    onScreenChange: (NavRoute) -> Unit
 ) {
     val navBackStackEntry = navGraph.navController.currentBackStackEntryAsState().value
     val currentDestination = navBackStackEntry?.destination
@@ -66,7 +65,6 @@ fun ScaffoldBottomBar(
                             it.hasRoute(route = destination.route::class)
                         } == false) {
                         navGraph.navigateToDestination(destination.route)
-                        onScreenChange(destination.route)
                     }
                 }
             )
@@ -102,6 +100,5 @@ fun HomeBottomBarPreview() {
             ),
         ),
         navGraph = NavGraph(navHostController),
-        onScreenChange = { },
     )
 }

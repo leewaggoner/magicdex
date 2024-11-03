@@ -31,6 +31,10 @@ sealed interface NavRoute {
         fun fromDestination(currentDestination: NavDestination?): NavRoute {
             return when {
                 currentDestination?.hasRoute(CardDetail::class) == true -> CardDetail(cardId = "id")
+                currentDestination?.hasRoute(Cards::class) == true -> Cards
+                currentDestination?.hasRoute(Sets::class) == true -> Sets
+                currentDestination?.hasRoute(Types::class) == true -> Types
+                currentDestination?.hasRoute(Formats::class) == true -> Formats
                 else -> InvalidScreen
             }
         }

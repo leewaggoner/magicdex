@@ -25,8 +25,8 @@ import com.wreckingballsoftware.magicdex.ui.carddetail.components.CardMisc
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailEvents
 import com.wreckingballsoftware.magicdex.ui.carddetail.models.CardDetailState
 import com.wreckingballsoftware.magicdex.ui.components.CardDetailTab
+import com.wreckingballsoftware.magicdex.ui.components.NoTouchCircularProgress
 import com.wreckingballsoftware.magicdex.ui.models.DetailTab
-import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
 import com.wreckingballsoftware.magicdex.ui.theme.LightWhite
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
 import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
@@ -34,7 +34,6 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun CardDetailScreen(
-    navGraph: NavGraph,
     viewModel: CardDetailViewModel = getViewModel(),
 ) {
     Column {
@@ -42,6 +41,10 @@ fun CardDetailScreen(
             state = viewModel.state,
             onEvent = viewModel::onEvent,
         )
+    }
+
+    if (viewModel.state.showProgress) {
+        NoTouchCircularProgress()
     }
 }
 

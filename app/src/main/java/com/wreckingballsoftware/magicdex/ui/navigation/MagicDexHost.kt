@@ -45,9 +45,7 @@ fun NavGraphBuilder.cardsGraph(
             )
         }
         composable<NavRoute.CardDetail> {
-            CardDetailScreen(
-                navGraph = navGraph,
-            )
+            CardDetailScreen()
         }
     }
 }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -38,10 +39,13 @@ fun MagicScaffold(
         }
     }
 
-    //set ScaffoldTopBar state
     val navBackStackEntry = navGraph.navController.currentBackStackEntryAsState().value
     val currentDestination = navBackStackEntry?.destination
-    viewModel.onEvent(MagicScaffoldEvents.OnScreenChange(NavRoute.fromDestination(currentDestination)))
+    val currentRoute = NavRoute.fromDestination(currentDestination)
+    LaunchedEffect(key1 = currentRoute) {
+        //set ScaffoldTopBar state
+        viewModel.onEvent(MagicScaffoldEvents.OnScreenChange(currentRoute))
+    }
 
     MagicScaffoldContent(
         magicDexHost = {
@@ -89,7 +93,6 @@ private fun MagicScaffoldContent(
              ScaffoldBottomBar(
                  destinations = menuList,
                  navGraph = navGraph,
-                 onScreenChange = { route -> onEvent(MagicScaffoldEvents.OnScreenChange(route)) },
              )
         }
     ) { contentPadding ->
