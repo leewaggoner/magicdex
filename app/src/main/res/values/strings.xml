@@ -34,4 +34,8 @@
     <string name="art">Art</string>
     <string name="rulings">Rulings</string>
     <string name="legalities">Legalities</string>
+    <string name="release_date">Released: %1$s</string>
+    <string name="online_only">Online Only</string>
+    <string name="expansion_set">Expansion Set: %1$s</string>
+    <string name="border">%1$s Border</string>
 </resources>

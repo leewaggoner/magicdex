@@ -25,7 +25,10 @@ fun MagicDexHost(
             navGraph,
             searchQuery,
         )
-        setsGraph(navGraph)
+        setsGraph(
+            navGraph,
+            searchQuery,
+        )
         typesGraph(navGraph)
         formatsGraph(navGraph)
     }
@@ -41,7 +44,7 @@ fun NavGraphBuilder.cardsGraph(
         composable<NavRoute.Cards> {
             CardsScreen(
                 navGraph = navGraph,
-                searchQuery = searchQuery
+                searchQuery = searchQuery,
             )
         }
         composable<NavRoute.CardDetail> {
@@ -50,12 +53,18 @@ fun NavGraphBuilder.cardsGraph(
     }
 }
 
-fun NavGraphBuilder.setsGraph(navGraph: NavGraph) {
+fun NavGraphBuilder.setsGraph(
+    navGraph: NavGraph,
+    searchQuery: String,
+) {
     navigation<NavRoute.SetsRoot>(
         startDestination = NavRoute.Sets
     ) {
         composable<NavRoute.Sets> {
-            SetsScreen(navGraph = navGraph)
+            SetsScreen(
+                navGraph = navGraph,
+                searchQuery = searchQuery,
+            )
         }
     }
 }

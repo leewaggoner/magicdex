@@ -21,9 +21,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.extensions.collectOneTimeEvents
-import com.wreckingballsoftware.magicdex.ui.components.CardItem
 import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenEvent
 import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenOneOffs
+import com.wreckingballsoftware.magicdex.ui.components.CardItem
 import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardItemData
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
 import com.wreckingballsoftware.magicdex.ui.theme.Blue
@@ -60,7 +60,7 @@ fun CardsScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
-        MagicDexScreenContent(
+        CardsScreenContent(
             cards = cardList,
             onEvent = viewModel::onEvent,
         )
@@ -77,7 +77,7 @@ fun CardsScreen(
 }
 
 @Composable
-private fun MagicDexScreenContent(
+private fun CardsScreenContent(
     cards: LazyPagingItems<Card>,
     onEvent: (CardsScreenEvent) -> Unit
 ) {
@@ -115,11 +115,11 @@ private fun MagicDexScreenContent(
 
 @Preview(name = "Magic Dex Screen")
 @Composable
-private fun MagicDexScreenPreview() {
+private fun CardsScreenPreview() {
     val cardData = providePreviewData()
     val pagingData = PagingData.from(cardData)
     val cardDataFlow = MutableStateFlow(pagingData)
-    MagicDexScreenContent(
+    CardsScreenContent(
         cards = cardDataFlow.collectAsLazyPagingItems(),
         onEvent = { }
     )

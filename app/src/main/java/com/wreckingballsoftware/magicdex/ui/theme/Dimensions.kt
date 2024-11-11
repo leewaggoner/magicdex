@@ -39,6 +39,7 @@ data class Dimensions(
     val pillBorder: Dp = 1.dp,
     val sheetPeekHeight: Dp = 148.dp,
     val cardArtHeight: Dp = 500.dp,
+    val magicSetCardHeight: Dp = 120.dp,
 
     val magicCardManaTextSize: TextUnit = 16.sp,
 )
