@@ -8,7 +8,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.wreckingballsoftware.magicdex.ui.carddetail.CardDetailScreen
 import com.wreckingballsoftware.magicdex.ui.cards.CardsScreen
+import com.wreckingballsoftware.magicdex.ui.formats.FormatsScreen
 import com.wreckingballsoftware.magicdex.ui.sets.SetsScreen
+import com.wreckingballsoftware.magicdex.ui.types.TypesScreen
 
 @Composable
 fun MagicDexHost(
@@ -27,6 +29,8 @@ fun MagicDexHost(
             navGraph,
             searchQuery,
         )
+        typesGraph(navGraph)
+        formatsGraph(navGraph)
     }
 }
 
@@ -61,6 +65,26 @@ fun NavGraphBuilder.setsGraph(
                 navGraph = navGraph,
                 searchQuery = searchQuery,
             )
+        }
+    }
+}
+
+fun NavGraphBuilder.typesGraph(navGraph: NavGraph) {
+    navigation<NavRoute.TypesRoot>(
+        startDestination = NavRoute.Types
+    ) {
+        composable<NavRoute.Types> {
+            TypesScreen(navGraph = navGraph)
+        }
+    }
+}
+
+fun NavGraphBuilder.formatsGraph(navGraph: NavGraph) {
+    navigation<NavRoute.FormatsRoot>(
+        startDestination = NavRoute.Formats
+    ) {
+        composable<NavRoute.Formats> {
+            FormatsScreen(navGraph = navGraph)
         }
     }
 }

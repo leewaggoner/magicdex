@@ -50,6 +50,16 @@ class MagicScaffoldViewModel(
                 label = R.string.sets,
                 icon = R.drawable.ico_set
             ),
+            TopLevelDestination(
+                route = NavRoute.Types,
+                label = R.string.types,
+                icon = R.drawable.ico_type
+            ),
+            TopLevelDestination(
+                route = NavRoute.Formats,
+                label = R.string.formats,
+                icon = R.drawable.ico_format
+            ),
         )
 
     private fun onSearchAction() {

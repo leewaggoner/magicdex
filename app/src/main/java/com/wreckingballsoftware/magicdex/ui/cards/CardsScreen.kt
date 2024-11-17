@@ -9,19 +9,16 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
-import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.data.models.Card
 import com.wreckingballsoftware.magicdex.extensions.collectOneTimeEvents
 import com.wreckingballsoftware.magicdex.ui.cards.models.CardsScreenEvent
@@ -31,7 +28,6 @@ import com.wreckingballsoftware.magicdex.ui.models.mapToMagicCardItemData
 import com.wreckingballsoftware.magicdex.ui.navigation.NavGraph
 import com.wreckingballsoftware.magicdex.ui.theme.Blue
 import com.wreckingballsoftware.magicdex.ui.theme.dimensions
-import com.wreckingballsoftware.magicdex.ui.theme.magicTypography
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
@@ -98,12 +94,6 @@ private fun CardsScreenContent(
                     onEvent(CardsScreenEvent.ApiError(e.error.localizedMessage ?: "Unknown error"))
                 }
                 else -> {
-                    if (cards.itemCount == 0) {
-                        Text(
-                            text = stringResource(R.string.no_cards_found),
-                            style = MaterialTheme.magicTypography.body,
-                        )
-                    }
                     LazyColumn {
                         items(
                             count = cards.itemCount,
