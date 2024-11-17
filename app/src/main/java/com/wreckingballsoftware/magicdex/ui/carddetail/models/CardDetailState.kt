@@ -12,5 +12,5 @@ data class CardDetailState(
     val message: String? = null,
     val showProgress: Boolean = true,
     val tabs: List<DetailTab> = emptyList(),
-    val selected: DetailTab = DetailTab.ABOUT
+    val selected: DetailTab = DetailTab.ART
 )

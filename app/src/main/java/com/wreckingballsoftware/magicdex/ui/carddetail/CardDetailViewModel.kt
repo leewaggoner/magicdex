@@ -36,7 +36,10 @@ class CardDetailViewModel(
                 }
             }
         }
-        state = state.copy(tabs = listOf(DetailTab.ABOUT, DetailTab.ART, DetailTab.MISC))
+        state = state.copy(
+            tabs = listOf(DetailTab.ART, DetailTab.ABOUT, DetailTab.MISC),
+            selected = DetailTab.ART,
+        )
     }
 
     fun onEvent(event: CardDetailEvents) {

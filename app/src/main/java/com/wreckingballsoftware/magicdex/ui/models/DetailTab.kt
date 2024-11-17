@@ -6,7 +6,7 @@ import com.wreckingballsoftware.magicdex.R
 enum class DetailTab(
     @StringRes val titleId: Int
 ) {
-    ABOUT(R.string.about),
     ART(R.string.art),
+    ABOUT(R.string.about),
     MISC(R.string.misc)
 }

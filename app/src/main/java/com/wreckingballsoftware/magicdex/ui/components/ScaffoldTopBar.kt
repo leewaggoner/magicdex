@@ -148,22 +148,9 @@ private data class HomeTopBarParams(
 
 private class HomeTopBarParamsPreviewProvider : PreviewParameterProvider<HomeTopBarParams> {
     override val values = sequenceOf(
-        HomeTopBarParams(),
         HomeTopBarParams(
             title = "Search for card",
             hasSearch = true,
-            placeholder = "Search for something",
-        ),
-        HomeTopBarParams(
-            title = "Search for set",
-            hasSearch = true,
-            placeholder = "Search for something",
-            onBack = { },
-        ),
-        HomeTopBarParams(
-            title = "Search for type",
-            hasSearch = true,
-            query = "Creature",
             placeholder = "Search for something",
         ),
         HomeTopBarParams(

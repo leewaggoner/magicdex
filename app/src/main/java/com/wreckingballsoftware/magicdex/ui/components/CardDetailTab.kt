@@ -49,8 +49,8 @@ fun CardDetailTab(
 @Composable
 fun CardDetailTabPreview() {
     CardDetailTab(
-        tabs = listOf(DetailTab.ABOUT, DetailTab.ART, DetailTab.MISC),
-        selected = DetailTab.ABOUT,
+        tabs = listOf(DetailTab.ART, DetailTab.ABOUT, DetailTab.MISC),
+        selected = DetailTab.ART,
         onClick = { }
     )
 }
