@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
 import com.wreckingballsoftware.magicdex.R
 import com.wreckingballsoftware.magicdex.ui.theme.LightBlack
 import com.wreckingballsoftware.magicdex.ui.theme.White
@@ -47,16 +48,19 @@ fun ScaffoldTopBar(
     onClear: () -> Unit,
     onBack: (() -> Unit)?,
 ) {
+    val corner = if (onBack == null) MaterialTheme.dimensions.appBarCorner else 0.dp
+    var height = if (hasSearch) {
+        MaterialTheme.dimensions.topBarHeight
+    } else {
+        MaterialTheme.dimensions.topBarHeightNoSearch
+    }
     TopAppBar(
         modifier = modifier.then(
             Modifier
-                .height(if (hasSearch) MaterialTheme.dimensions.topBarHeight else MaterialTheme.dimensions.topBarHeightNoSearch)
+                .height(height)
                 .background(
                     color = LightBlack,
-                    shape = RoundedCornerShape(
-                        bottomStart = MaterialTheme.dimensions.appBarCorner,
-                        bottomEnd = MaterialTheme.dimensions.appBarCorner
-                    ),
+                    shape = RoundedCornerShape(bottomStart = corner, bottomEnd = corner)
                 )
                 .clip(
                     RoundedCornerShape(
@@ -149,22 +153,9 @@ private data class HomeTopBarParams(
 
 private class HomeTopBarParamsPreviewProvider : PreviewParameterProvider<HomeTopBarParams> {
     override val values = sequenceOf(
-        HomeTopBarParams(),
         HomeTopBarParams(
             title = "Search for card",
             hasSearch = true,
-            placeholder = "Search for something",
-        ),
-        HomeTopBarParams(
-            title = "Search for set",
-            hasSearch = true,
-            placeholder = "Search for something",
-            onBack = { },
-        ),
-        HomeTopBarParams(
-            title = "Search for type",
-            hasSearch = true,
-            query = "Creature",
             placeholder = "Search for something",
         ),
         HomeTopBarParams(

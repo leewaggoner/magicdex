@@ -18,14 +18,6 @@ sealed interface NavRoute {
     data object SetsRoot : NavRoute
     @Serializable
     data object Sets : NavRoute
-    @Serializable
-    data object TypesRoot : NavRoute
-    @Serializable
-    data object Types : NavRoute
-    @Serializable
-    data object FormatsRoot : NavRoute
-    @Serializable
-    data object Formats : NavRoute
 
     companion object {
         fun fromDestination(currentDestination: NavDestination?): NavRoute {
@@ -33,8 +25,6 @@ sealed interface NavRoute {
                 currentDestination?.hasRoute(CardDetail::class) == true -> CardDetail(cardId = "id")
                 currentDestination?.hasRoute(Cards::class) == true -> Cards
                 currentDestination?.hasRoute(Sets::class) == true -> Sets
-                currentDestination?.hasRoute(Types::class) == true -> Types
-                currentDestination?.hasRoute(Formats::class) == true -> Formats
                 else -> InvalidScreen
             }
         }
